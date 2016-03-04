@@ -18,7 +18,7 @@ $nombre = $row['Nombre'];
 <head>
   <title>VENTAS</title>
   <meta charset="utf-8">
-  <link rel="icon" type="image/png" href="../img/icono.ico"/>
+  <link rel="icon" type="image/png" href="../recursos/icono.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    
     <link rel="stylesheet" href="../css/style.css">    
     <script src="../js/jquery.js"></script>
