@@ -216,8 +216,7 @@ div.centerTable table {
 .form-signin {
     max-width: 400px;
     padding: 10px 19px 19px;
-    margin: 0 auto;
-    //margin-top:90px;
+    margin: 0 auto;    
     background-color: #F5F5F5;
     
     border: 1px solid #e5e5e5;
@@ -244,9 +243,7 @@ div.centerTable table {
     padding: 7px 9px;
 }
 
-.signin-form, .body-container
-{
-    //border:solid red 1px;
+.signin-form, .body-container {   
     margin-top:30px;
 }
 
