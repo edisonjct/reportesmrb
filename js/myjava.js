@@ -39,7 +39,7 @@ $(function(){
 		var hasta = $('#bd-hasta').val();
 		var bodega = $('#cb-bodega').val();                
                 var tipo = $('#cb-tipo').val(); 
-                var stock = $('#txt-stock').val();                 
+                var stock = $('#txt-stock').val();
 		$('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
 		var url = '../php/Busca_reposicion.php';				
 		$.ajax({
@@ -417,6 +417,15 @@ function reporteEXCEL(){
 	var dato = $('#bs-prod').val();	
 	var bodega = $('#cb-bodega').val();
 	window.location.href = '../php/excelventas.php?desde='+desde+'&hasta='+hasta+'&dato='+dato+'&bodega='+bodega;	
+}
+
+
+
+function reporteReposicion(){	
+	var tipo = $('#cb-tipo').val();	
+	var bodega = $('#cb-bodega').val();
+        var stock = $('#txt-stock').val();
+	window.location.href = '../php/ExcelReposicion.php?tipo='+tipo+'&stock='+stock+'&bodega='+bodega;	
 }
 
 function reporteSINACT(){	

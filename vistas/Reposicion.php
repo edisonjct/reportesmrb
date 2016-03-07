@@ -104,7 +104,7 @@ $id = $row['id'];
                     <input type="date" class="form-control" id="bd-hasta" name="hasta" />
                 </div>        
                 <button id="bt-reposicion" class="btn btn-primary">Buscar</button>        
-                <a data-toggle="tooltip" title="Hooray!" target="_blank" href="javascript:reporteventasd();" class="btn btn-success">Excel</a>
+                <a data-toggle="tooltip" title="Hooray!" target="_blank" href="javascript:reporteReposicion();" class="btn btn-success">Excel</a>
             </center>
         </form>      
     </div>
