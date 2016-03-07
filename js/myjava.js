@@ -33,6 +33,25 @@ $(function(){
 	});
 	return false;
 	});
+        
+        $('#bt-reposicion').on('click', function(){
+		var desde = $('#bd-desde').val();
+		var hasta = $('#bd-hasta').val();
+		var bodega = $('#cb-bodega').val();                
+                var tipo = $('#cb-tipo').val(); 
+                var stock = $('#txt-stock').val();                 
+		$('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
+		var url = '../php/Busca_reposicion.php';				
+		$.ajax({
+		type:'GET',
+		url:url,
+		data:'desde='+desde+'&hasta='+hasta+'&bodega='+bodega+'&tipo='+tipo+'&stock='+stock,
+		success: function(datos){
+			$('#agrega-registros').html(datos);
+		}
+	});
+	return false;
+	});
 
 	$('#bt-ticket').on('click',function(){
 		var ticket = $('#txt-ticket').val();	

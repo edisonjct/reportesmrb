@@ -200,7 +200,3 @@ echo '<table class="table table-striped table-condensed table-hover">
 }
 }
 ?> 
-
-
-
-
