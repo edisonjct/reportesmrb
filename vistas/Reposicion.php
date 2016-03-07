@@ -71,8 +71,7 @@ $id = $row['id'];
         <form class="form-inline" role="form" method="GET">
             <center>       
                 <div class="form-group">                        
-                    <select required="required" id="cb-bodega" class="form-control">
-                        <option value="TODOS">TODOS</option>
+                    <select required="required" id="cb-bodega" class="form-control">                        
                         <?php
                         $query = mysql_query("SELECT b.nombre as id ,b.nombre as nombre FROM bodegas b
                         INNER JOIN usuariobodegas u ON u.id_bodega = b.cod_local
@@ -86,7 +85,14 @@ $id = $row['id'];
                     </select>
                 </div>
                 <div class="form-group">            
-                    >= <input type="text" class="form-control" value="1" id="txt-stock"/>
+                    <select required="required" id="cb-operador" class="form-control">
+                        <option value='1'>>=</option>
+                        <option value='2'>=</option>
+                        <option value='3'><=</option>
+                    </select>
+                </div>
+                <div class="form-group">            
+                   <input type="text" class="form-control" value="1" id="txt-stock"/>
                 </div>
                 <div class="form-group">    
                     <select required="required" id="cb-tipo" class="form-control">

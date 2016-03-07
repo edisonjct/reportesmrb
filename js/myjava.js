@@ -34,18 +34,21 @@ $(function(){
 	return false;
 	});
         
+
+        
         $('#bt-reposicion').on('click', function(){
 		var desde = $('#bd-desde').val();
 		var hasta = $('#bd-hasta').val();
 		var bodega = $('#cb-bodega').val();                
                 var tipo = $('#cb-tipo').val(); 
                 var stock = $('#txt-stock').val();
+                var operador = $('#cb-operador').val();
 		$('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
 		var url = '../php/Busca_reposicion.php';				
 		$.ajax({
 		type:'GET',
 		url:url,
-		data:'desde='+desde+'&hasta='+hasta+'&bodega='+bodega+'&tipo='+tipo+'&stock='+stock,
+		data:'desde='+desde+'&hasta='+hasta+'&bodega='+bodega+'&tipo='+tipo+'&stock='+stock+'&operador='+operador,
 		success: function(datos){
 			$('#agrega-registros').html(datos);
 		}
@@ -422,10 +425,12 @@ function reporteEXCEL(){
 
 
 function reporteReposicion(){	
+        var desde = $('#bd-desde').val();
+        var hasta = $('#bd-hasta').val();
 	var tipo = $('#cb-tipo').val();	
 	var bodega = $('#cb-bodega').val();
         var stock = $('#txt-stock').val();
-	window.location.href = '../php/ExcelReposicion.php?tipo='+tipo+'&stock='+stock+'&bodega='+bodega;	
+	window.location.href = '../php/ExcelReposicion.php?desde='+desde+'&hasta='+hasta+'&tipo='+tipo+'&stock='+stock+'&bodega='+bodega;	
 }
 
 function reporteSINACT(){	

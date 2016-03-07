@@ -9,6 +9,8 @@
 $conexion = include('conexion.php');
 require_once '../Classes/PHPExcel.php';
 $objPHPExcel = new PHPExcel();
+$desde = $_GET['desde'];
+$hasta = $_GET['hasta'];
 $bodega = $_GET['bodega'];
 $tipo = $_GET['tipo'];
 $stock = $_GET['stock'];
@@ -50,6 +52,27 @@ $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(10);
 $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(10);
 $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(10);
 $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(10);
+
+$vaciartabla = mysql_query("DELETE FROM tmpventascantidadbodega");
+$ventas = mysql_query("INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,cantidad) SELECT
+	m.codprod01,
+        m.codbar01,
+        f.bodega,
+        sum(f.CANTID03)  
+        FROM
+        factura_detalle f
+        LEFT JOIN maepro m ON f.CODPROD03 = m.codprod01
+        LEFT JOIN factura_cabecera fa ON f.NOCOMP03 = fa.nofact31    
+        WHERE f.TIPOTRA03 = '80' AND fa.cvanulado31 <> '9' AND f.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND f.bodega = '$bodega'
+        GROUP BY f.bodega,f.CODPROD03");
+$vaciartabla = mysql_query("DELETE FROM tmpstocklocal");
+    $stocklocal = mysql_query("INSERT INTO tmpstocklocal(codpro,stock,bodega)
+        SELECT
+        i.codprod01,
+        i.cantact01,
+        i.bodega
+            FROM
+        INVENTARIO i WHERE i.bodega = '$bodega'");
 
 $sql = "SELECT
         m.codprod01 AS interno,

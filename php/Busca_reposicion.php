@@ -7,9 +7,23 @@ $hasta = $_GET['hasta'];
 $bodega = $_GET['bodega'];
 $tipo = $_GET['tipo'];
 $stock = $_GET['stock'];
-//$tipo = $_GET['bodega'];
+$operador = $_GET['operador'];
 
 
+switch ($operador) {
+        case 1:
+        $signo = '>=';
+        break;
+ 
+        case 2:
+        $signo = '=';
+        break;
+    
+        case 3:
+        $signo = '<=';
+        break;
+ }  
+  
 echo '<table class="table table-striped table-condensed table-hover table-responsive">
           <tr>
           <th width="10">#</th>
@@ -22,7 +36,7 @@ echo '<table class="table table-striped table-condensed table-hover table-respon
           <th width="200">UFC</th>
           <th width="200">UBICA</th>
           <th width="100">CDI</th>
-          <th width="100">'.$bodega.'</th>
+          <th width="100">' . $bodega . '</th>
           <th width="100">VENTA</th>          
           <th width="100">PEDIDO</th>
             </tr>';
@@ -75,10 +89,9 @@ if ($bodega == 'TODOS') {
         LEFT JOIN autores ON m.infor01 = autores.codigo
         LEFT JOIN editoriales ON m.infor02 = editoriales.codigo
         INNER JOIN categorias ON m.catprod01 = categorias.codcate
-        WHERE l.stock >= '$stock' AND p.tipcte01 = '$tipo'
-        ORDER BY v.cantidad DESC
-"
-    );
+        WHERE l.stock $signo '$stock' AND p.tipcte01 = '$tipo'
+        ORDER BY v.cantidad DESC"
+    );       
 
     $count = '0';
     if (mysql_num_rows($registro) > 0) {
@@ -94,14 +107,16 @@ if ($bodega == 'TODOS') {
         <td><h6>' . $registro2['provedor'] . '</h6></td>
         <td><h6>' . $registro2['uf'] . '</h6></td>               
         <td><h6>' . $registro2['ubicacion'] . '</h6></td>   
-        <td class="active"><h6>' . number_format($registro2['CDI'], 0, '.',',') . '</h6></td>
-        <td class="success"><h6>' . number_format($registro2['BODEGA'], 0, '.',',') . '</h6></td>
-        <td class="warning"><h6>' . number_format($registro2['venta'], 0, '.',',') . '</h6></td>         
-        <td class="danger"><h6>'. number_format($registro2['pedido'], 0, '.',',') .'</h6></td>
+        <td class="active"><h6>' . number_format($registro2['CDI'], 0, '.', ',') . '</h6></td>
+        <td class="success"><h6>' . number_format($registro2['BODEGA'], 0, '.', ',') . '</h6></td>
+        <td class="warning"><h6>' . number_format($registro2['venta'], 0, '.', ',') . '</h6></td>         
+        <td class="danger"><h6>' . number_format($registro2['pedido'], 0, '.', ',') . '</h6></td>
       </tr>';
         }
     } else {
-        echo '<tr><td colspan="6">No se encontraron resultados</td></tr>';
+        echo '<tr><td colspan="13"><div class="alert alert-danger">
+            <strong>NO SE ENCONTRARON RESULTADOS</strong>
+            </div></td></tr>';
     }
     echo '</table>';
 }
