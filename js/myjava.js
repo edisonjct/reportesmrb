@@ -43,12 +43,13 @@ $(function(){
                 var tipo = $('#cb-tipo').val(); 
                 var stock = $('#txt-stock').val();
                 var operador = $('#cb-operador').val();
+                var ufc = $('#bd-ufc').val();
 		$('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
 		var url = '../php/Busca_reposicion.php';				
 		$.ajax({
 		type:'GET',
 		url:url,
-		data:'desde='+desde+'&hasta='+hasta+'&bodega='+bodega+'&tipo='+tipo+'&stock='+stock+'&operador='+operador,
+		data:'desde='+desde+'&hasta='+hasta+'&bodega='+bodega+'&tipo='+tipo+'&stock='+stock+'&operador='+operador+'&ufc='+ufc,
 		success: function(datos){
 			$('#agrega-registros').html(datos);
 		}

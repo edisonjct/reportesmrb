@@ -94,6 +94,9 @@ $id = $row['id'];
                 <div class="form-group">            
                    <input type="text" class="form-control" value="1" id="txt-stock"/>
                 </div>
+                <div class="form-group">                    
+                    <input type="date" class="form-control" id="bd-ufc" name="ufc"/>
+                </div>
                 <div class="form-group">    
                     <select required="required" id="cb-tipo" class="form-control">
                         <option value="0002">NACIONAL</option>

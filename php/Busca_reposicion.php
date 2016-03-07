@@ -8,6 +8,7 @@ $bodega = $_GET['bodega'];
 $tipo = $_GET['tipo'];
 $stock = $_GET['stock'];
 $operador = $_GET['operador'];
+$ufc = $_GET['ufc'];
 
 
 switch ($operador) {
@@ -89,7 +90,7 @@ if ($bodega == 'TODOS') {
         LEFT JOIN autores ON m.infor01 = autores.codigo
         LEFT JOIN editoriales ON m.infor02 = editoriales.codigo
         INNER JOIN categorias ON m.catprod01 = categorias.codcate
-        WHERE l.stock $signo '$stock' AND p.tipcte01 = '$tipo'
+        WHERE l.stock $signo '$stock' AND p.tipcte01 = '$tipo' AND m.fecult01 >= '$ufc 00:00:00'
         ORDER BY v.cantidad DESC"
     );       
 
