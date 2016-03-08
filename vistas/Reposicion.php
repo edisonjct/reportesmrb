@@ -181,9 +181,7 @@ $id = $row['id'];
                     <div role="tabpanel" class="tab-pane" id="seccion3">
                         
                     </div>
-                </div>
-                prueba desde netbean hacia repositorio 
-
+                </div>                
             </div>                           
         </form>                  
         <script src="../js/jquery.js"></script>

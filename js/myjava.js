@@ -334,12 +334,6 @@ $('#bt-reporteFAC_ANULADAS').on('click',function(){
 	});
 
 
-	$(".text").linker({
-   target: '', //blank,self,parent,top
-   className : '',
-   rel : ''
-}); 
-
 	
 
 });
