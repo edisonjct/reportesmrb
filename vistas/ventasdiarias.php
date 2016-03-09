@@ -22,7 +22,9 @@ $id = $row['id'];
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    
         <link rel="stylesheet" href="../css/style.css">    
         <script src="../js/jquery.js"></script>
-        <script src="../js/myjava.js"></script>    
+        <script src="../js/myjava.js"></script>  
+        <link rel="stylesheet" href="../css/bootstrap-select.min.css">
+        <script src="../js/bootstrap-select.min.js"></script>        
         <link href="../css/bootstrap.css" rel="stylesheet">
     </head>
     <body>
@@ -71,8 +73,7 @@ $id = $row['id'];
         <form class="form-inline" role="form" method="GET" id="busqueda">
             <center>       
                 <div class="form-group">                        
-                    <select required="required" id="cb-bodega" class="form-control">
-                        <option value="TODOS">TODOS</option>
+                    <select required="required" id="cb-bodega" class="form-control selectpicker" multiple data-actions-box="true" data-selected-text-format="count > 3">
                         <?php
                         $query = mysql_query("SELECT b.nombre as id ,b.nombre as nombre FROM bodegas b
                         INNER JOIN usuariobodegas u ON u.id_bodega = b.cod_local

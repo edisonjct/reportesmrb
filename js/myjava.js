@@ -333,9 +333,6 @@ $('#bt-reporteFAC_ANULADAS').on('click',function(){
 	return false;
 	});
 
-
-	
-
 });
 
 
