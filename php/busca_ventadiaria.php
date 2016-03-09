@@ -62,7 +62,7 @@ sum(t.venta) - sum(t.costo) as margen,
 t.grupo as grupo
 FROM
 tmpventas t
-WHERE t.fecha BETWEEN '2015-01-01 00:00:00' AND '2016-03-01 23:59:59'
+WHERE t.fecha BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59'
 GROUP BY t.bodega,t.tipo ORDER BY t.grupo,t.tipo DESC"); 
 
 $grupo = '';
@@ -122,7 +122,7 @@ factura_detalle AS d
 INNER JOIN factura_cabecera ON d.NOCOMP03 = factura_cabecera.nofact31
 INNER JOIN bodegas ON d.bodega = bodegas.nombre
 where ((d.TIPOTRA03 = '80') and (factura_cabecera.cvanulado31 <> '9')) AND 
-d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND d.bodega = '$bodega'
+d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND d.bodega IN ('$bodega')
 group by d.NOCOMP03,d.bodega");
 $devolucion = mysql_query("INSERT INTO  tmpventas(tipo,bodega,documento,numdoc,numlibros,venta,costo,fecha,grupo) SELECT
 d.TIPOTRA03 AS tipo,
@@ -139,7 +139,7 @@ factura_detalle AS d
 INNER JOIN bodegas ON d.bodega = bodegas.nombre
 WHERE
 d.TIPOTRA03 = '22' AND d.cvanulado03 = 'N' AND
-d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND d.bodega = '$bodega'
+d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND d.bodega IN ('$bodega')
 group by d.NOCOMP03,d.bodega");
 
 $resul= mysql_query("SELECT
@@ -153,7 +153,7 @@ sum(t.venta) - sum(t.costo) as margen,
 t.grupo as grupo
 FROM
 tmpventas t
-WHERE t.fecha BETWEEN '2015-01-01 00:00:00' AND '2016-03-01 23:59:59' AND t.bodega = '$bodega'
+WHERE t.fecha BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND t.bodega IN ('$bodega')
 GROUP BY t.bodega,t.tipo ORDER BY t.grupo,t.tipo DESC"); 
 
 $grupo = '';
