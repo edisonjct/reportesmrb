@@ -16,14 +16,13 @@ $id = $row['id'];
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>REPOSICION</title>
-        
+        <title>REPOSICION</title>        
         <meta charset="utf-8">
         <link rel="icon" type="image/png" href="../recursos/icono.ico"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    
-        <link rel="stylesheet" href="../css/style.css">    
+        <link rel="stylesheet" href="../css/style.css">
         <script src="../js/jquery.js"></script>
-        <script src="../js/myjava.js"></script>    
+        <script src="../js/myjava.js"></script>
         <link href="../css/bootstrap.css" rel="stylesheet">
     </head>
     <body>
@@ -81,28 +80,27 @@ $id = $row['id'];
                         <center>    
                             <div class="form-group">                        
                                 <select required="required" id="cb-bodega" class="form-control">                        
-                                    <?php
-                                    $query = mysql_query("SELECT b.nombre as id ,b.nombre as nombre FROM bodegas b
-                        INNER JOIN usuariobodegas u ON u.id_bodega = b.cod_local
-                        WHERE estado = '1' AND u.id_usuario = '$id' ORDER BY orden");
-                                    if (mysql_num_rows($query) > 0) {
-                                        while ($row = mysql_fetch_array($query)) {
-                                            echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . "</option>\n";
-                                        }
-                                    }
-                                    ?>                                     
+                                <option value="CDI">CDI</option>
+                                <option value="JARDIN">JARDIN</option>
+                                <option value="SOL">SOL</option>
+                                <option value="CONDADO">CONDADO</option>
+                                <option value="SCALA">SCALA</option>
+                                <option value="VILLAGE">VILLAGE</option>
+                                <option value="QUICENTRO">QUICENTRO</option>
+                                <option value="SAN LUIS">SAN LUIS</option>
+                                <option value="SAN MARINO">SAN MARINO</option>
+                                <option value="CUMBAYA">CUMBAYA</option>
+                                <option value="JUAN LEON MERA">JUAN LEON MERA</option>
+                                <option value="EVENTOS">EVENTOS</option>
+                                <option value="WEB">WEB</option>                                  
                                 </select>
-                            </div>
-                            <div class="form-group">            
                                 <select required="required" id="cb-operador" class="form-control">
                                     <option value='1'>>=</option>
                                     <option value='2'>=</option>
                                     <option value='3'><=</option>
                                 </select>
-                            </div>
-                            <div class="form-group">            
                                 <input type="text" class="form-control" value="1" id="txt-stock"/>
-                            </div>
+                            </div>                            
                             <div class="form-group">                    
                                 <input type="date" class="form-control" id="bd-ufc" name="ufc"/>
                             </div>
@@ -113,74 +111,16 @@ $id = $row['id'];
                                     <option value="0001">INTERNACIONAL</option>
                                 </select>
                             </div>                                
-                            <div class="form-group">
-                                <label>Desde</label>
+                            <div class="form-group">                                
                                 <input type="date" class="form-control" id="bd-desde" name="desde" />
-                            </div>
-                            <div class="form-group">
-                                <label>Hasta</label>
                                 <input type="date" class="form-control" id="bd-hasta" name="hasta" />
-                            </div>        
+                            </div>                            
                             <button id="bt-reposicion" class="btn btn-primary">Buscar</button>        
-                            <a data-toggle="tooltip" title="Hooray!" target="_blank" href="javascript:reporteReposicion();" class="btn btn-success">Excel</a>
+                            <a data-toggle="tooltip" title="Hooray!" target="_blank" href="javascript:reporteReposicionVentas();" class="btn btn-success">Excel</a>
                         </center> 
                         </br>
                         <div class="table-responsive" id="agrega-registros"></div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="seccion2">
-                        </br>
-                        <center>    
-                            <div class="form-group">                        
-                                <select required="required" id="cb-bodega" class="form-control">                        
-                                    <?php
-                                    $query = mysql_query("SELECT b.nombre as id ,b.nombre as nombre FROM bodegas b
-                        INNER JOIN usuariobodegas u ON u.id_bodega = b.cod_local
-                        WHERE estado = '1' AND u.id_usuario = '$id' ORDER BY orden");
-                                    if (mysql_num_rows($query) > 0) {
-                                        while ($row = mysql_fetch_array($query)) {
-                                            echo "<option value='" . $row['id'] . "'>" . $row['nombre'] . "</option>\n";
-                                        }
-                                    }
-                                    ?>                                     
-                                </select>
-                            </div>
-                            <div class="form-group">            
-                                <select required="required" id="cb-operador" class="form-control">
-                                    <option value='1'>>=</option>
-                                    <option value='2'>=</option>
-                                    <option value='3'><=</option>
-                                </select>
-                            </div>
-                            <div class="form-group">            
-                                <input type="text" class="form-control" value="1" id="txt-stock"/>
-                            </div>
-                            <div class="form-group">                    
-                                <input type="date" class="form-control" id="bd-ufc" name="ufc"/>
-                            </div>
-                            <div class="form-group">    
-                                <select required="required" id="cb-tipo" class="form-control">
-                                    <option value="0002">NACIONAL</option>
-                                    <option value="0003">CONSIGNADO</option>
-                                    <option value="0001">INTERNACIONAL</option>
-                                </select>
-                            </div>                                
-                            <div class="form-group">
-                                <label>Desde</label>
-                                <input type="date" class="form-control" id="bd-desde" name="desde" />
-                            </div>
-                            <div class="form-group">
-                                <label>Hasta</label>
-                                <input type="date" class="form-control" id="bd-hasta" name="hasta" />
-                            </div>        
-                            <button id="bt-reposicion" class="btn btn-primary">Buscar</button>        
-                            <a data-toggle="tooltip" title="Hooray!" target="_blank" href="javascript:reporteReposicion();" class="btn btn-success">Excel</a>
-                        </center> 
-                        </br>
-                        <div class="table-responsive" id="agrega-registros"></div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="seccion3">
-                        
-                    </div>
+                    </div>                    
                 </div>                
             </div>                           
         </form>                  

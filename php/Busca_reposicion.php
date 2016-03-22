@@ -12,15 +12,15 @@ $ufc = $_GET['ufc'];
 
 
 switch ($operador) {
-        case 1:
+        case '1':
         $signo = '>=';
         break;
  
-        case 2:
+        case '2':
         $signo = '=';
         break;
     
-        case 3:
+        case '3':
         $signo = '<=';
         break;
  }  
@@ -46,7 +46,7 @@ if ($bodega == 'TODOS') {
     
 } else {
     //BUSCA TODOS LOS CODIGOS EN TODOS LOS LOCALES
-    $vaciartabla = mysql_query("DELETE FROM tmpventascantidadbodega");
+    $vaciartablaventas = mysql_query("DELETE FROM tmpventascantidadbodega");
     $ventas = mysql_query("INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,cantidad) SELECT
 	m.codprod01,
         m.codbar01,
@@ -58,7 +58,7 @@ if ($bodega == 'TODOS') {
         LEFT JOIN factura_cabecera fa ON f.NOCOMP03 = fa.nofact31    
         WHERE f.TIPOTRA03 = '80' AND fa.cvanulado31 <> '9' AND f.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND f.bodega = '$bodega'
         GROUP BY f.bodega,f.CODPROD03");
-    $vaciartabla = mysql_query("DELETE FROM tmpstocklocal");
+    $vaciartablastock = mysql_query("DELETE FROM tmpstocklocal");
     $stocklocal = mysql_query("INSERT INTO tmpstocklocal(codpro,stock,bodega)
         SELECT
         i.codprod01,
@@ -91,8 +91,7 @@ if ($bodega == 'TODOS') {
         LEFT JOIN editoriales ON m.infor02 = editoriales.codigo
         INNER JOIN categorias ON m.catprod01 = categorias.codcate
         WHERE l.stock $signo '$stock' AND p.tipcte01 = '$tipo' AND m.fecult01 >= '$ufc 00:00:00'
-        ORDER BY v.cantidad DESC"
-    );       
+        ORDER BY v.cantidad DESC");
 
     $count = '0';
     if (mysql_num_rows($registro) > 0) {
