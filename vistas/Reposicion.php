@@ -80,7 +80,7 @@ $id = $row['id'];
                             <div class="form-group">                        
                                 <select required="required" id="cb-bodega" class="form-control" data-toggle="tooltip" title="Selecione Bodegas">                        
                                     <?php
-                                    $query = mysql_query("SELECT bodegas.nombre as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '118' ORDER BY bodegas.orden");
+                                    $query = mysql_query("SELECT bodegas.nombre as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
                                     if (mysql_num_rows($query) > 0) {
                                         while ($row = mysql_fetch_array($query)) {
                                             echo "<option value='" . $row['codigo'] . "'>" . $row['nombre'] . "</option>\n";
@@ -121,7 +121,7 @@ $id = $row['id'];
                             <div class="form-group">                        
                                 <select required="required" id="cb-bodegacomp" class="form-control" data-toggle="tooltip" title="Selecione Bodegas">                        
                                     <?php
-                                    $query = mysql_query("SELECT bodegas.nombre as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '118' ORDER BY bodegas.orden");
+                                    $query = mysql_query("SELECT bodegas.nombre as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
                                     if (mysql_num_rows($query) > 0) {
                                         while ($row = mysql_fetch_array($query)) {
                                             echo "<option value='" . $row['codigo'] . "'>" . $row['nombre'] . "</option>\n";

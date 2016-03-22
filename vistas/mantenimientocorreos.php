@@ -12,6 +12,7 @@ $stmt->execute(array(":uid"=>$_SESSION['user_session']));
 $row=$stmt->fetch(PDO::FETCH_ASSOC);
 $perfil = $row['Tipo'];
 $nombre = $row['Nombre'];
+$id = $row['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

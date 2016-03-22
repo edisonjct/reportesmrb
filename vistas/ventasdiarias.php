@@ -76,12 +76,10 @@ $id = $row['id'];
                     <select required="required" id="cb-bodega" class="form-control">
                         <option value="TODOS">TODOS</option>
                         <?php
-                        $query = mysql_query("SELECT b.nombre as id ,b.nombre as nombre FROM bodegas b
-                        INNER JOIN usuariobodegas u ON u.id_bodega = b.cod_local
-                        WHERE estado = '1' AND u.id_usuario = '$id' ORDER BY orden");
+                        $query = mysql_query("SELECT bodegas.nombre as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
                         if (mysql_num_rows($query) > 0) {
                             while ($row = mysql_fetch_array($query)) {
-                                echo "<option value=" . $row['id'] . ">" . $row['nombre'] . "</option>\n";
+                                echo "<option value='" . $row['codigo'] . "'>" . $row['nombre'] . "</option>\n";
                             }
                         }
                         ?>                                     

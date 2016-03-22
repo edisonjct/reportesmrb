@@ -72,8 +72,7 @@ i.bodega from factura_detalle i WHERE i.TIPOTRA03 = '11' AND i.bodega = '$bodega
         im.NOFACT03
         from factura_detalle im
         WHERE TIPOTRA03 = '30'
-        GROUP BY CODPROD03
-");
+        GROUP BY CODPROD03");
     $registro = mysql_query("SELECT
 m.codprod01 AS interno,
 m.codbar01 AS codigo,
