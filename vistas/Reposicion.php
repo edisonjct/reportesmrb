@@ -79,19 +79,14 @@ $id = $row['id'];
                         <center>    
                             <div class="form-group">                        
                                 <select required="required" id="cb-bodega" class="form-control" data-toggle="tooltip" title="Selecione Bodegas">                        
-                                <option value="CDI">CDI</option>
-                                <option value="JARDIN">JARDIN</option>
-                                <option value="SOL">SOL</option>
-                                <option value="CONDADO">CONDADO</option>
-                                <option value="SCALA">SCALA</option>
-                                <option value="VILLAGE">VILLAGE</option>
-                                <option value="QUICENTRO">QUICENTRO</option>
-                                <option value="SAN LUIS">SAN LUIS</option>
-                                <option value="SAN MARINO">SAN MARINO</option>
-                                <option value="CUMBAYA">CUMBAYA</option>
-                                <option value="JUAN LEON MERA">JUAN LEON MERA</option>
-                                <option value="EVENTOS">EVENTOS</option>
-                                <option value="WEB">WEB</option>                                  
+                                    <?php
+                                    $query = mysql_query("SELECT bodegas.nombre as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '118' ORDER BY bodegas.orden");
+                                    if (mysql_num_rows($query) > 0) {
+                                        while ($row = mysql_fetch_array($query)) {
+                                            echo "<option value='" . $row['codigo'] . "'>" . $row['nombre'] . "</option>\n";
+                                        }
+                                    }
+                                    ?>                                                                    
                                 </select>
                                 <select required="required" id="cb-operador" class="form-control" data-toggle="tooltip" title="Selecione Operador">
                                     <option value='1'>>=</option>
@@ -125,19 +120,14 @@ $id = $row['id'];
                         <center>    
                             <div class="form-group">                        
                                 <select required="required" id="cb-bodegacomp" class="form-control" data-toggle="tooltip" title="Selecione Bodegas">                        
-                                <option value="CDI">CDI</option>
-                                <option value="JARDIN">JARDIN</option>
-                                <option value="SOL">SOL</option>
-                                <option value="CONDADO">CONDADO</option>
-                                <option value="SCALA">SCALA</option>
-                                <option value="VILLAGE">VILLAGE</option>
-                                <option value="QUICENTRO">QUICENTRO</option>
-                                <option value="SAN LUIS">SAN LUIS</option>
-                                <option value="SAN MARINO">SAN MARINO</option>
-                                <option value="CUMBAYA">CUMBAYA</option>
-                                <option value="JUAN LEON MERA">JUAN LEON MERA</option>
-                                <option value="EVENTOS">EVENTOS</option>
-                                <option value="WEB">WEB</option>                                  
+                                    <?php
+                                    $query = mysql_query("SELECT bodegas.nombre as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '118' ORDER BY bodegas.orden");
+                                    if (mysql_num_rows($query) > 0) {
+                                        while ($row = mysql_fetch_array($query)) {
+                                            echo "<option value='" . $row['codigo'] . "'>" . $row['nombre'] . "</option>\n";
+                                        }
+                                    }
+                                    ?>                                 
                                 </select>
                                 <select required="required" id="cb-operadorcomp" class="form-control" data-toggle="tooltip" title="Selecione Operador">
                                     <option value='1'>>=</option>
