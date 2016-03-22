@@ -8,34 +8,34 @@ $bodega = $_GET['bodega'];
 $tipo = $_GET['tipo'];
 $stock = $_GET['stock'];
 $operador = $_GET['operador'];
-$ufc = $_GET['ufc'];
+
 
 
 switch ($operador) {
-        case 1:
+    case '1':
         $signo = '>=';
         break;
- 
-        case 2:
+
+    case '2':
         $signo = '=';
         break;
-    
-        case 3:
+
+    case '3':
         $signo = '<=';
         break;
- }  
-  
+}
+
 echo '<table class="table table-striped table-condensed table-hover table-responsive">
           <tr>
           <th width="10">#</th>
           <th width="100">CODIGO</th>
           <th width="300">TITULO</th>
-          <th width="200">CATEGORIA</th>             
-          <th width="200">AUTOR</th>   
-          <th width="200">EDITORIAL</th>   
+          <th width="100">CATEGORIA</th>             
+          <th width="100">AUTOR</th>   
+          <th width="100">EDITORIAL</th>   
           <th width="250">PROVEDOR</th>         
           <th width="250">IMPORTACION</th>
-          <th width="200">UBICA</th>
+          <th width="100">UBICA</th>
           <th width="200">UFC</th>
           <th width="200">UFT</th>
           <th width="100">CDI</th>
@@ -99,10 +99,10 @@ LEFT JOIN autores ON m.infor01 = autores.codigo
 LEFT JOIN editoriales ON m.infor02 = editoriales.codigo
 INNER JOIN categorias ON m.catprod01 = categorias.codcate
 INNER JOIN tmpultimatransferencia as utf ON utf.codprod = m.codprod01
-WHERE m.cantact01 >= '0' AND im.fecha BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59'
+WHERE m.cantact01 $signo '$stock' AND im.fecha BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59'
 GROUP BY codprod01
 ORDER BY cantact01 DESC"
-    );       
+    );
 
     $count = '0';
     if (mysql_num_rows($registro) > 0) {

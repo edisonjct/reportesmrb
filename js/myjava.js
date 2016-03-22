@@ -56,6 +56,25 @@ $(function () {
         });
         return false;
     });
+    
+    $('#bt-reposicioncompras').on('click', function () {
+        var desde = $('#bd-desdecomp').val();
+        var hasta = $('#bd-hastacomp').val();
+        var bodega = $('#cb-bodegacomp').val();        
+        var stock = $('#txt-stockcomp').val();
+        var operador = $('#cb-operadorcomp').val();        
+        $('#agrega-registros-comp').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
+        var url = '../php/BuscarReposicionCompras.php';
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&stock=' + stock + '&operador=' + operador,
+            success: function (datos) {
+                $('#agrega-registros-comp').html(datos);
+            }
+        });
+        return false;
+    });
 
     $('#bt-ticket').on('click', function () {
         var ticket = $('#txt-ticket').val();
@@ -423,6 +442,15 @@ function reporteReposicionVentas() {
     var desde = $('#bd-desde').val();    
     var hasta = $('#bd-hasta').val();    
     window.location.href = '../php/ExcelReposicion.php?bodega='+bodega+'&operador='+operador+'&stock='+stock+'&ufc='+ufc+'&tipo='+tipo+'&desde='+desde+'&hasta='+hasta;
+}
+
+function reporteReposicionCompras() {
+    var bodega = $('#cb-bodegacomp').val();
+    var operador = $('#cb-operadorcomp').val();    
+    var stock = $('#txt-stockcomp').val();            
+    var desde = $('#bd-desdecomp').val();    
+    var hasta = $('#bd-hastacomp').val();    
+    window.location.href = '../php/ExcelReposicionCompras.php?bodega='+bodega+'&operador='+operador+'&stock='+stock+'&desde='+desde+'&hasta='+hasta;
 }
 
 
