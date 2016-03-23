@@ -57,21 +57,41 @@ $(function () {
         return false;
     });
     
-    $('#bt-reposicioncompras').on('click', function () {
-        var desde = $('#bd-desdecomp').val();
-        var hasta = $('#bd-hastacomp').val();
-        var bodega = $('#cb-bodegacomp').val();        
-        var stock = $('#txt-stockcomp').val();
-        var operador = $('#cb-operadorcomp').val(); 
-        var tipo = $('#cb-tipocomp').val();         
-        $('#agrega-registros-comp').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
-        var url = '../php/BuscarReposicionCompras.php';
+    $('#bt-reposicion').on('click', function () {
+        var desde = $('#bd-desde').val();
+        var hasta = $('#bd-hasta').val();
+        var bodega = $('#cb-bodega').val();
+        var tipo = $('#cb-tipo').val();
+        var stock = $('#txt-stock').val();
+        var operador = $('#cb-operador').val();
+        var ufc = $('#bd-ufc').val();
+        $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
+        var url = '../php/Busca_reposicion.php';
         $.ajax({
             type: 'GET',
             url: url,
-            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&stock=' + stock + '&operador=' + operador + '&tipo=' + tipo,
+            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&tipo=' + tipo + '&stock=' + stock + '&operador=' + operador + '&ufc=' + ufc,
             success: function (datos) {
-                $('#agrega-registros-comp').html(datos);
+                $('#agrega-registros').html(datos);
+            }
+        });
+        return false;
+    });
+    
+    $('#bt-reposicionbr').on('click', function () {
+        var desde = $('#bd-desde').val();
+        var hasta = $('#bd-hasta').val();        
+        var stock = $('#txt-stock').val();
+        var operador = $('#cb-operador').val(); 
+        var tipo = $('#cb-tipo').val();         
+        $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
+        var url = '../php/BuscarReposicionCompraBR.php';
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: 'desde=' + desde + '&hasta=' + hasta + '&stock=' + stock + '&operador=' + operador + '&tipo=' + tipo,
+            success: function (datos) {
+                $('#agrega-registros').html(datos);
             }
         });
         return false;
