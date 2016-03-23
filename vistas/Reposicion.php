@@ -71,7 +71,7 @@ $id = $row['id'];
             <div role="tabpanel">
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#seccion1" aria-controls data-toggle="tab" role="tab">Reposicion Por Ventas</a></li>
-                    <li role="presentation" ><a href="#seccion2" aria-controls data-toggle="tab" role="tab">Reposicion Por Compras Internacionales</a></li>                    
+                    <li role="presentation" ><a href="#seccion2" aria-controls data-toggle="tab" role="tab">Reposicion Por Compras</a></li>
                 </ul>     
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="seccion1">
@@ -128,14 +128,21 @@ $id = $row['id'];
                                         }
                                     }
                                     ?>                                 
-                                </select>
+                                </select>                               
                                 <select required="required" id="cb-operadorcomp" class="form-control" data-toggle="tooltip" title="Selecione Operador">
                                     <option value='1'>>=</option>
                                     <option value='2'>=</option>
                                     <option value='3'><=</option>
                                 </select>
                                 <input type="text" class="form-control" value="1" id="txt-stockcomp" data-toggle="tooltip" title="Ingrese Stock CDI a Buscar"/>
-                            </div>                                                        
+                            </div>
+                            <div class="form-group">    
+                                <select required="required" id="cb-tipocomp" class="form-control" data-toggle="tooltip" title="Tipo de Provedor">
+                                    <option value="0002">NACIONAL</option>
+                                    <option value="0003">CONSIGNADO</option>
+                                    <option value="0001">INTERNACIONAL</option>
+                                </select>
+                            </div> 
                             <div class="form-group">                                
                                 <input type="date" class="form-control" id="bd-desdecomp" name="desde" data-toggle="tooltip" title="Selecione Fecha de Compra Desde"/>
                                 <input type="date" class="form-control" id="bd-hastacomp" name="hasta" data-toggle="tooltip" title="Selecione Fecha de Compra Hasta"/>

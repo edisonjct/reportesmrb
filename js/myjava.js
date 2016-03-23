@@ -62,13 +62,14 @@ $(function () {
         var hasta = $('#bd-hastacomp').val();
         var bodega = $('#cb-bodegacomp').val();        
         var stock = $('#txt-stockcomp').val();
-        var operador = $('#cb-operadorcomp').val();        
+        var operador = $('#cb-operadorcomp').val(); 
+        var tipo = $('#cb-tipocomp').val();         
         $('#agrega-registros-comp').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
         var url = '../php/BuscarReposicionCompras.php';
         $.ajax({
             type: 'GET',
             url: url,
-            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&stock=' + stock + '&operador=' + operador,
+            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&stock=' + stock + '&operador=' + operador + '&tipo=' + tipo,
             success: function (datos) {
                 $('#agrega-registros-comp').html(datos);
             }

@@ -12,19 +12,19 @@ $ufc = $_GET['ufc'];
 
 
 switch ($operador) {
-        case '1':
+    case '1':
         $signo = '>=';
         break;
- 
-        case '2':
+
+    case '2':
         $signo = '=';
         break;
-    
-        case '3':
+
+    case '3':
         $signo = '<=';
         break;
- }  
-  
+}
+
 echo '<table class="table table-striped table-condensed table-hover table-responsive">
           <tr>
           <th width="10">#</th>
@@ -46,6 +46,17 @@ if ($bodega == 'TODOS') {
     
 } else {
     //BUSCA TODOS LOS CODIGOS EN TODOS LOS LOCALES
+    $vaciarufc = mysql_query("DELETE FROM tmpultimafechacompra");
+    $ufcompra = mysql_query("INSERT INTO tmpultimafechacompra (codprod,fecha,cantidad)
+    SELECT
+    uf.CODPROD03,	
+    max(DATE_FORMAT(uf.FECMOV03, '%Y-%m-%d')),
+    (select im.CANTID03 from factura_detalle im WHERE im.CODPROD03=uf.CODPROD03 AND im.bodega = 'CDI' AND im.TIPOTRA03 IN ('30', '01', '49', '37') AND im.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' ORDER BY im.FECMOV03 DESC LIMIT 1) as cantid
+    FROM
+	factura_detalle uf
+    WHERE
+    uf.TIPOTRA03 IN ('30', '01', '49', '37') AND uf.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND uf.bodega = 'CDI'
+    GROUP BY uf.CODPROD03 ORDER BY uf.CODPROD03");
     $vaciartablaventas = mysql_query("DELETE FROM tmpventascantidadbodega");
     $ventas = mysql_query("INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,cantidad) SELECT
 	m.codprod01,
@@ -74,7 +85,7 @@ if ($bodega == 'TODOS') {
         autores.nombres AS autor,
         editoriales.razon AS editorial,
         p.nomcte01 AS provedor,       
-        DATE_FORMAT(m.fecult01,'%Y-%m-%d') as uf,
+        DATE_FORMAT(ufc.fecha,'%Y-%m-%d') as uf,
         m.infor08 as ubicacion,
         m.cantact01 AS CDI,
         l.stock AS BODEGA,
@@ -90,7 +101,8 @@ if ($bodega == 'TODOS') {
         LEFT JOIN autores ON m.infor01 = autores.codigo
         LEFT JOIN editoriales ON m.infor02 = editoriales.codigo
         INNER JOIN categorias ON m.catprod01 = categorias.codcate
-        WHERE l.stock $signo '$stock' AND p.tipcte01 = '$tipo' AND m.fecult01 >= '$ufc 00:00:00'
+	LEFT JOIN tmpultimafechacompra AS ufc ON m.codprod01 = ufc.codprod
+        WHERE l.stock $signo '$stock' AND p.tipcte01 = '$tipo' AND ufc.fecha >= '$ufc 00:00:00'
         ORDER BY v.cantidad DESC");
 
     $count = '0';
