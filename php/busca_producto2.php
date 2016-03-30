@@ -37,7 +37,7 @@ FROM
   LEFT JOIN maepro m ON f.CODPROD03 = m.codprod01
   LEFT JOIN factura_cabecera fa ON f.NOCOMP03 = fa.nofact31
   LEFT JOIN categorias ON m.catprod01 = categorias.codcate
-  LEFT JOIN provedores ON m.proved101 = provedores.codcte01
+  LEFT JOIN provedores ON m.proved101 = provedores.coddest01
 WHERE f.TIPOTRA03 = '80' AND fa.cvanulado31 <> '9' AND f.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND m.codbar01 = '$dato'
 GROUP BY f.bodega,f.CODPROD03 ORDER BY sum(f.CANTID03) DESC"
 );
