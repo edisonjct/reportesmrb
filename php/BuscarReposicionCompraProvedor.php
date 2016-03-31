@@ -55,7 +55,9 @@ switch ($tipo) {
         tmpcomprasprovedor.compra as compra,
         tmpcomprasprovedor.provedor as provedor,
         tmpcomprasprovedor.cantidad as cantidad,
-        tmpventastotalprovedor.total as venta
+        tmpventastotalprovedor.total as venta,
+        CASE WHEN tmpventastotalprovedor.total >= tmpcomprasprovedor.cantidad THEN 100 ELSE ROUND((tmpventastotalprovedor.total * 100)/tmpcomprasprovedor.cantidad) END as porcen,
+        CASE WHEN tmpventastotalprovedor.total >= tmpcomprasprovedor.cantidad THEN 0 ELSE 100 - (ROUND((tmpventastotalprovedor.total * 100)/tmpcomprasprovedor.cantidad)) END as dif
         FROM
         tmpcomprasprovedor
         INNER JOIN tmpventastotalprovedor ON tmpventastotalprovedor.codproved = tmpcomprasprovedor.codproved
@@ -66,24 +68,35 @@ switch ($tipo) {
                     $grupo=$row['compra'];                    
                     if($grupoant != $grupo){                        
                         echo '<table class="table table-striped table-condensed table-hover table-responsive">';
-                        echo '<tr><th colspan="5">'.$row["compra"].'</th></tr>';
+                        echo '<tr><th colspan="5" class="alert alert-danger">'.$row["compra"].'</th></tr>';
                         echo '<tr> 
-                                <th>PROVEDOR</th>  
-                                <th>COMPRA</th> 
-                                <th>VENTA</th>                                
+                                <th width="300">PROVEDOR</th>  
+                                <th width="100">COMPRA</th> 
+                                <th width="100">VENTA</th>
+                                <th width="200">%</th>
                               </tr>';
                         }                
-                            echo '<tr>
-                            <td></td>                    
+                            echo '<tr>                                         
                             <td>'.$row["provedor"].'</td>
-                            <td>'.number_format($row["cantidad"]).'</td>                    
-                            <td>'.number_format($row["venta"], 2, '.',',').'</td>                    
+                            <td>'.number_format($row["cantidad"], 0, '.',',').'</td>                    
+                            <td>'.number_format($row["venta"], 0, '.',',').'</td>                
+                            <td>
+                            <div class="progress">
+                            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" style="width:' . number_format($row['porcen'], 0, '.', ',') . '%">
+                                    ' . number_format($row['porcen'], 0, '.', ',') . '%
+                                </div>        
+                                    <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" style="width:' . number_format($row['dif'], 0, '.', ',') . '%">
+                                        ' . number_format($row['dif'], 0, '.', ',') . '%
+                                    </div>
+                                </div>
+                            </td>
                             </tr>';                            
            }           
         } else {
-            echo '<tr><td colspan="4"><div class="alert alert-danger">
-            <strong>NO SE ENCONTRARON RESULTADOS</strong>
-            </div></td></tr>';
+            echo '<div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong> No se encontraron Resultados</strong>
+                    </div>';
         }        
         echo '</table>';        
         break;

@@ -96,6 +96,23 @@ $(function () {
         });
         return false;
     });
+    
+    $('#bt-reposicionprovedor').on('click', function () {
+        var desde = $('#bd-desde').val();
+        var hasta = $('#bd-hasta').val();        
+        var tipo = $('#cb-tipo').val();         
+        $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargagrande.gif" width="100" /><div></h2>');
+        var url = '../php/BuscarReposicionCompraProvedor.php';
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: 'desde=' + desde + '&hasta=' + hasta + '&tipo=' + tipo,
+            success: function (datos) {
+                $('#agrega-registros').html(datos);
+            }
+        });
+        return false;
+    });
 
     $('#bt-ticket').on('click', function () {
         var ticket = $('#txt-ticket').val();
@@ -244,6 +261,23 @@ $(function () {
         var bodega = $('#cb-bodega').val();
         $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
         var url = '../php/facturasanuladas.php';
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega,
+            success: function (datos) {
+                $('#agrega-registros').html(datos);
+            }
+        });
+        return false;
+    });
+    
+    $('#bt-reporteFAC_ANULADAS2').on('click', function () {
+        var desde = $('#bd-desde').val();
+        var hasta = $('#bd-hasta').val();
+        var bodega = $('#cb-bodega').val();
+        $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
+        var url = '../php/facturasanuladas2.php';
         $.ajax({
             type: 'GET',
             url: url,

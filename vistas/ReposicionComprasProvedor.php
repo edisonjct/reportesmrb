@@ -76,20 +76,12 @@ $id = $row['id'];
                                     <option value="0003">CONSIGNADO</option>
                                     <option value="0001">INTERNACIONAL</option>
                                 </select>
-                            </div>                                
-                            <div class="form-group">                                                        
-                                <select required="required" id="cb-operador" class="form-control" data-toggle="tooltip" title="Selecione Operador">
-                                    <option value='1'>>=</option>
-                                    <option value='2'>=</option>
-                                    <option value='3'><=</option>
-                                </select>
-                                <input type="text" class="form-control" value="1" id="txt-stock" data-toggle="tooltip" title="Ingrese Stock a Buscar"/>
-                            </div>                                                        
+                            </div>                                                                                                                  
                             <div class="form-group">                                
                                 <input type="date" class="form-control" id="bd-desde" name="desde" data-toggle="tooltip" title="Selecione fecha Desde"/>
                                 <input type="date" class="form-control" id="bd-hasta" name="hasta" data-toggle="tooltip" title="Selecione fecha Hasta"/>
                             </div>                            
-                            <button id="bt-reposicionbr" class="btn btn-primary" data-toggle="tooltip" title="Buscar">Buscar</button>        
+                            <button id="bt-reposicionprovedor" class="btn btn-primary" data-toggle="tooltip" title="Buscar">Buscar</button>        
                             <a data-toggle="tooltip" title="Exportar a Excel" target="_blank" href="javascript:reporteReposicionVentas();" class="btn btn-success">Excel</a>
                         </center> 
                         </br>
