@@ -1,6 +1,3 @@
 <?php
-$conexion = mysql_connect('localhost', 'root', 'mrbooks');
+$conexion = mysql_connect('localhost', 'root', '');
 mysql_select_db('mrbookspac', $conexion);
-
-
-?>

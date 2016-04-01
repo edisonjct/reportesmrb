@@ -51,11 +51,11 @@ if ($bodega == 'TODOS') {
     SELECT
     uf.CODPROD03,	
     max(DATE_FORMAT(uf.FECMOV03, '%Y-%m-%d')),
-    (select im.CANTID03 from factura_detalle im WHERE im.CODPROD03=uf.CODPROD03 AND im.bodega = 'CDI' AND im.TIPOTRA03 IN ('30', '01', '49', '37') AND im.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' ORDER BY im.FECMOV03 DESC LIMIT 1) as cantid
+    (select im.CANTID03 from factura_detalle im WHERE im.CODPROD03=uf.CODPROD03 AND im.bodega = '01' AND im.TIPOTRA03 IN ('30', '01', '49', '37') AND im.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' ORDER BY im.FECMOV03 DESC LIMIT 1) as cantid
     FROM
 	factura_detalle uf
     WHERE
-    uf.TIPOTRA03 IN ('30', '01', '49', '37') AND uf.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND uf.bodega = 'CDI'
+    uf.TIPOTRA03 IN ('30', '01', '49', '37') AND uf.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND uf.bodega = '01'
     GROUP BY uf.CODPROD03 ORDER BY uf.CODPROD03");
     $vaciartablaventas = mysql_query("DELETE FROM tmpventascantidadbodega");
     $ventas = mysql_query("INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,cantidad) SELECT
@@ -67,7 +67,7 @@ if ($bodega == 'TODOS') {
         factura_detalle f
         LEFT JOIN maepro m ON f.CODPROD03 = m.codprod01
         LEFT JOIN factura_cabecera fa ON f.NOCOMP03 = fa.nofact31    
-        WHERE f.TIPOTRA03 = '80' AND fa.cvanulado31 <> '9' AND f.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND f.bodega = '$bodega'
+        WHERE f.TIPOTRA03 = '80' AND fa.cvanulado31 <> '9' AND f.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND f.bodega IN ($bodega)
         GROUP BY f.bodega,f.CODPROD03");
     $vaciartablastock = mysql_query("DELETE FROM tmpstocklocal");
     $stocklocal = mysql_query("INSERT INTO tmpstocklocal(codpro,stock,bodega)

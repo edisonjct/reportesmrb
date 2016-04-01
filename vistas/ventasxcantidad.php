@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 if (!isset($_SESSION['user_session'])) {
     header("Location: ../index.php");
 }
@@ -17,13 +16,16 @@ $id = $row['id'];
 <html lang="en">
     <head>
         <title>VENTAS</title>
-        <meta charset="utf-8">
+       <meta charset="utf-8">
         <link rel="icon" type="image/png" href="../recursos/icono.ico"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    
         <link rel="stylesheet" href="../css/style.css">    
+        <link rel="stylesheet" href="../css/bootstrap.css">        
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap-select.css">
         <script src="../js/jquery.js"></script>
+        <script src="../js/bootstrap-select.js"></script>
         <script src="../js/myjava.js"></script>
-        <link href="../css/bootstrap.css" rel="stylesheet">
     </head>
     <body>
         <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
@@ -74,10 +76,9 @@ $id = $row['id'];
                     <input type="text" class="form-control" placeholder=" Busca Codigo" id="bs-prod"/>
                 </div>
                 <div class="form-group">                        
-                    <select required="required" id="cb-bodega" class="form-control">                                                                
-                        <option value="TODOS">TODOS</option>
+                    <select required="required" id="cb-bodega" class="selectpicker" data-actions-box="true" data-live-search="true">                        
                         <?php
-                        $query = mysql_query("SELECT bodegas.nombre as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
+                        $query = mysql_query("SELECT bodegas.cod_local as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
                         if (mysql_num_rows($query) > 0) {
                             while ($row = mysql_fetch_array($query)) {
                                 echo "<option value='" . $row['codigo'] . "'>" . $row['nombre'] . "</option>\n";
@@ -101,7 +102,6 @@ $id = $row['id'];
     </div>
     </br>
     <div class="table-responsive" id="agrega-registros"></div>
-
     <script src="../js/jquery.js"></script>
     <script src="../js/bootstrap.min.js"></script>
 </body>

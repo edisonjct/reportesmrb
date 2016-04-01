@@ -18,13 +18,16 @@ $id = $row['id'];
 <html lang="en">
 <head>
   <title>CREDITOS EMPRESARIALES</title>
-  <meta charset="utf-8">
-  <link rel="icon" type="image/png" href="../recursos/icono.ico"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    
-    <link rel="stylesheet" href="../css/style.css">    
-    <script src="../js/jquery.js"></script>
-    <script src="../js/myjava.js"></script>
-    <link href="../css/bootstrap.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <link rel="icon" type="image/png" href="../recursos/icono.ico"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    
+        <link rel="stylesheet" href="../css/style.css">    
+        <link rel="stylesheet" href="../css/bootstrap.css">        
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap-select.css">
+        <script src="../js/jquery.js"></script>
+        <script src="../js/bootstrap-select.js"></script>
+        <script src="../js/myjava.js"></script>
 </head>
 <body>
 <nav role="navigation" class="navbar navbar-default navbar-fixed-top">

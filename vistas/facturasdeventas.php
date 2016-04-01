@@ -21,9 +21,12 @@ $id = $row['id'];
         <link rel="icon" type="image/png" href="../recursos/icono.ico"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    
         <link rel="stylesheet" href="../css/style.css">    
+        <link rel="stylesheet" href="../css/bootstrap.css">        
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap-select.css">
         <script src="../js/jquery.js"></script>
+        <script src="../js/bootstrap-select.js"></script>
         <script src="../js/myjava.js"></script>
-        <link href="../css/bootstrap.css" rel="stylesheet">
     </head>
     <body>
         <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
@@ -77,7 +80,7 @@ $id = $row['id'];
                     <select required="required" id="cb-bodega" class="form-control">                                                                
                         <option value="TODOS">TODOS</option>
                         <?php
-                        $query = mysql_query("SELECT bodegas.nombre as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
+                        $query = mysql_query("SELECT bodegas.cod_local as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
                         if (mysql_num_rows($query) > 0) {
                             while ($row = mysql_fetch_array($query)) {
                                 echo "<option value='" . $row['codigo'] . "'>" . $row['nombre'] . "</option>\n";

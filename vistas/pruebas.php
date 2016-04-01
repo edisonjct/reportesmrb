@@ -78,9 +78,9 @@ $id = $row['id'];
                 </div>
 
                 <div class="form-group">            
-                    <select required="required" id="cb-bodega" name="cb-bodega[]" class="selectpicker" multiple data-actions-box="true" data-live-search="true" data-selected-text-format="count > 3">                        
+                    <select required="required" id="cb-bodega" class="selectpicker" multiple data-actions-box="true" data-live-search="true" data-selected-text-format="count > 3">                        
                         <?php
-                        $query = mysql_query("SELECT bodegas.nombre as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
+                        $query = mysql_query("SELECT bodegas.cod_local as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
                         if (mysql_num_rows($query) > 0) {
                             while ($row = mysql_fetch_array($query)) {
                                 echo '<option value= "'. $row['codigo'] . '">' . $row['nombre'] . '</option>\n';

@@ -4,12 +4,6 @@ include('conexion.php');
 $desde = $_GET['desde'];
 $hasta = $_GET['hasta'];
 $bodega = $_GET['bodega'];
-$array_bodega = explode(",", $bodega);
-
-$cadena_equipo = implode(",", $array_bodega);
-echo "'".$cadena_equipo."',";
-
-//COMPROBAMOS QUE LAS FECHAS EXISTAN
 
 if ($bodega == 'TODOS'){
 $registro = mysql_query(
@@ -81,19 +75,21 @@ Sum(d.DESCVTA03+d.desctotvta03) AS DESCUENTO,
 Sum((((d.PRECVTA03-d.DESCVTA03-d.desctotvta03)*d.iva03)/100)+(d.PRECVTA03-d.DESCVTA03-d.desctotvta03)) AS VENTANETA,
 c.ruc31 AS CEDULA,
 c.nomcte31 AS NOMBRE,
-d.bodega as bodega,
+bodegas.nombre AS bodega,
 usuario.Nombre AS CAJERO
 FROM
 factura_detalle AS d
 LEFT JOIN factura_cabecera AS c ON d.NOCOMP03 = c.nofact31
 LEFT JOIN clientes ON c.nocte31 = clientes.codcte01
 LEFT JOIN usuario ON c.UID = usuario.id
+INNER JOIN bodegas ON d.bodega = bodegas.cod_local
 WHERE
 d.TIPOTRA03 = '80' AND
 c.cvanulado31 = '9' AND
-d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND d.bodega IN ('$bodega')
+d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND d.bodega AND d.bodega IN($bodega)
 GROUP BY d.NOCOMP03
 ORDER BY d.FECMOV03 DESC
+
 "
 );
 
