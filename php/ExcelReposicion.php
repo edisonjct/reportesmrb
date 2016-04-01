@@ -48,7 +48,7 @@ $objPHPExcel->getActiveSheet()->setCellValue('F2', 'PROVEDOR');
 $objPHPExcel->getActiveSheet()->setCellValue('G2', 'UFC');
 $objPHPExcel->getActiveSheet()->setCellValue('H2', 'UBICACION');
 $objPHPExcel->getActiveSheet()->setCellValue('I2', 'CDI');
-$objPHPExcel->getActiveSheet()->setCellValue('J2', $bodega);
+$objPHPExcel->getActiveSheet()->setCellValue('J2', 'LOCAL');
 $objPHPExcel->getActiveSheet()->setCellValue('K2', 'VENTA');
 $objPHPExcel->getActiveSheet()->setCellValue('L2', 'PEDIDO');
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
@@ -64,11 +64,6 @@ $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(15);
 $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(15);
 $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
 
-
-///////////////////////////////////////////
-if ($bodega == 'TODOS') {
-    
-} else {
 
     $vaciartablaventas = mysql_query("DELETE FROM tmpventascantidadbodega");
     $ventas = mysql_query("INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,cantidad) SELECT
@@ -141,7 +136,7 @@ if ($bodega == 'TODOS') {
             $i++;
         }
     }
-}
+
 
 
 header('Content-Type: application/vnd.ms-excel');
@@ -149,4 +144,3 @@ header('Content-Disposition: attachment;filename="Reposicion por Ventas ' . date
 header('Cache-Control: max-age=0');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save('php://output');
-?>

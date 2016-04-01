@@ -37,15 +37,12 @@ echo '<table class="table table-striped table-condensed table-hover table-respon
           <th width="200">UFC</th>
           <th width="200">UBICA</th>
           <th width="100">CDI</th>
-          <th width="100">' . $bodega . '</th>
+          <th width="100">LOCAL</th>
           <th width="100">VENTA</th>          
           <th width="100">PEDIDO</th>
             </tr>';
 
-if ($bodega == 'TODOS') {
-    
-} else {
-    //BUSCA TODOS LOS CODIGOS EN TODOS LOS LOCALES
+
     $vaciarufc = mysql_query("DELETE FROM tmpultimafechacompra");
     $ufcompra = mysql_query("INSERT INTO tmpultimafechacompra (codprod,fecha,cantidad)
     SELECT
@@ -131,5 +128,3 @@ if ($bodega == 'TODOS') {
             </div></td></tr>';
     }
     echo '</table>';
-}
-?>

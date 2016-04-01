@@ -93,7 +93,7 @@ $id = $row['id'];
                                 <input type="date" class="form-control" id="bd-hasta" name="hasta" data-toggle="tooltip" title="Selecione fecha Hasta"/>
                             </div>                            
                             <button id="bt-reposicionbr" class="btn btn-primary" data-toggle="tooltip" title="Buscar">Buscar</button>        
-                            <a data-toggle="tooltip" title="Exportar a Excel" target="_blank" href="javascript:reporteReposicionVentas();" class="btn btn-success">Excel</a>
+                            <a data-toggle="tooltip" title="Exportar a Excel" target="_blank" href="javascript:reporteReposicionComprasBR();" class="btn btn-success">Excel</a>
                         </center> 
                         </br>
                         <div class="table-responsive" id="agrega-registros"></div>                                                          

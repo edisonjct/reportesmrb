@@ -60,7 +60,7 @@ $objPHPExcel->getActiveSheet()->setCellValue('H2', 'UBICACION');
 $objPHPExcel->getActiveSheet()->setCellValue('I2', 'UFC');
 $objPHPExcel->getActiveSheet()->setCellValue('J2', 'UFT');
 $objPHPExcel->getActiveSheet()->setCellValue('K2', 'CDI');
-$objPHPExcel->getActiveSheet()->setCellValue('L2', $bodega);
+$objPHPExcel->getActiveSheet()->setCellValue('L2', 'LOCAL');
 $objPHPExcel->getActiveSheet()->setCellValue('M2', 'TRANSFERIDO');
 $objPHPExcel->getActiveSheet()->setCellValue('N2', 'PEDIDO');
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
@@ -77,12 +77,6 @@ $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(15);
 $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
 $objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(15);
 $objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(15);
-
-
-///////////////////////////////////////////
-if ($bodega == 'TODOS') {
-    
-} else {
 
    $vaciartablacompras = mysql_query("TRUNCATE tmpstocklocacompras");
     $compras = mysql_query("INSERT INTO tmpstocklocacompras(codpro,stock,bodega)
@@ -112,33 +106,33 @@ i.bodega from factura_detalle i WHERE i.TIPOTRA03 = '11' AND i.bodega = '$bodega
 ");
 
     $sql = "SELECT
-m.codprod01 AS interno,
-m.codbar01 AS codigo,
-m.desprod01 AS titulo,
-categorias.desccate AS categoria,
-autores.nombres AS autor,
-editoriales.razon AS editorial,
-p.nomcte01 AS provedor,
-DATE_FORMAT(max(im.fecha),'%Y-%m-%d') AS uf,
-im.importacion as codimp,
-m.infor08 AS ubicacion,
-DATE_FORMAT(utf.fecha,'%Y-%m-%d') as fechaut,
-m.cantact01 AS CDI,
-st.stock as bodega,
-utf.cantidad as cantut,
-CASE WHEN CDI > IF (st.stock < utf.cantidad,utf.cantidad-st.stock,0) AND CDI > 0 THEN IF (st.stock < utf.cantidad,utf.cantidad-st.stock,0) ELSE 0 END AS pedido
-FROM
-maepro AS m
-INNER JOIN tmpimportaciones AS im ON im.codigo = m.codprod01
-LEFT JOIN tmpstocklocacompras AS st ON st.codpro = m.codprod01
-INNER JOIN provedores AS p ON m.proved101 = p.coddest01
-LEFT JOIN autores ON m.infor01 = autores.codigo
-LEFT JOIN editoriales ON m.infor02 = editoriales.codigo
-INNER JOIN categorias ON m.catprod01 = categorias.codcate
-INNER JOIN tmpultimatransferencia as utf ON utf.codprod = m.codprod01
-WHERE m.cantact01 $signo '$stock' AND im.fecha BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59'
-GROUP BY codprod01
-ORDER BY cantact01 DESC";
+    m.codprod01 AS interno,
+    m.codbar01 AS codigo,
+    m.desprod01 AS titulo,
+    categorias.desccate AS categoria,
+    autores.nombres AS autor,
+    editoriales.razon AS editorial,
+    p.nomcte01 AS provedor,
+    DATE_FORMAT(max(im.fecha),'%Y-%m-%d') AS uf,
+    im.importacion as codimp,
+    m.infor08 AS ubicacion,
+    DATE_FORMAT(utf.fecha,'%Y-%m-%d') as fechaut,
+    m.cantact01 AS CDI,
+    st.stock as bodega,
+    utf.cantidad as cantut,
+    CASE WHEN CDI > IF (st.stock < utf.cantidad,utf.cantidad-st.stock,0) AND CDI > 0 THEN IF (st.stock < utf.cantidad,utf.cantidad-st.stock,0) ELSE 0 END AS pedido
+        FROM
+    maepro AS m
+    INNER JOIN tmpimportaciones AS im ON im.codigo = m.codprod01
+    LEFT JOIN tmpstocklocacompras AS st ON st.codpro = m.codprod01
+    INNER JOIN provedores AS p ON m.proved101 = p.coddest01
+    LEFT JOIN autores ON m.infor01 = autores.codigo
+    LEFT JOIN editoriales ON m.infor02 = editoriales.codigo
+    INNER JOIN categorias ON m.catprod01 = categorias.codcate
+    LEFT JOIN tmpultimatransferencia as utf ON utf.codprod = m.codprod01
+    WHERE m.cantact01 $signo '$stock' AND im.fecha BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59'
+    GROUP BY codprod01
+    ORDER BY cantact01 DESC";
 
     $resultado = mysql_query($sql) or die(mysql_error());
     $registros = mysql_num_rows($resultado);
@@ -165,8 +159,6 @@ ORDER BY cantact01 DESC";
             $i++;
         }
     }
-}
-
 
 header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="Reposicion por Compras ' . date("Y-m-d") . '.xlsx"');

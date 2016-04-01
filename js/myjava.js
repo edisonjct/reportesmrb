@@ -56,34 +56,33 @@ $(function () {
         });
         return false;
     });
-    
-    $('#bt-reposicion').on('click', function () {
-        var desde = $('#bd-desde').val();
-        var hasta = $('#bd-hasta').val();
-        var bodega = $('#cb-bodega').val();
-        var tipo = $('#cb-tipo').val();
-        var stock = $('#txt-stock').val();
-        var operador = $('#cb-operador').val();
-        var ufc = $('#bd-ufc').val();
-        $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
-        var url = '../php/Busca_reposicion.php';
+
+    $('#bt-reposicioncompras').on('click', function () {
+        var desde = $('#bd-desdecomp').val();
+        var hasta = $('#bd-hastacomp').val();
+        var bodega = $('#cb-bodegacomp').val();
+        var tipo = $('#cb-tipocomp').val();
+        var stock = $('#txt-stockcomp').val();
+        var operador = $('#cb-operadorcomp').val();
+        $('#agrega-registros-comp').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
+        var url = '../php/BuscarReposicionCompras.php';
         $.ajax({
             type: 'GET',
             url: url,
-            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&tipo=' + tipo + '&stock=' + stock + '&operador=' + operador + '&ufc=' + ufc,
+            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&tipo=' + tipo + '&stock=' + stock + '&operador=' + operador,
             success: function (datos) {
-                $('#agrega-registros').html(datos);
+                $('#agrega-registros-comp').html(datos);
             }
         });
         return false;
     });
-    
+
     $('#bt-reposicionbr').on('click', function () {
         var desde = $('#bd-desde').val();
-        var hasta = $('#bd-hasta').val();        
+        var hasta = $('#bd-hasta').val();
         var stock = $('#txt-stock').val();
-        var operador = $('#cb-operador').val(); 
-        var tipo = $('#cb-tipo').val();         
+        var operador = $('#cb-operador').val();
+        var tipo = $('#cb-tipo').val();
         $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
         var url = '../php/BuscarReposicionCompraBR.php';
         $.ajax({
@@ -96,11 +95,11 @@ $(function () {
         });
         return false;
     });
-    
+
     $('#bt-reposicionprovedor').on('click', function () {
         var desde = $('#bd-desde').val();
-        var hasta = $('#bd-hasta').val();        
-        var tipo = $('#cb-tipo').val();         
+        var hasta = $('#bd-hasta').val();
+        var tipo = $('#cb-tipo').val();
         $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargagrande.gif" width="100" /><div></h2>');
         var url = '../php/BuscarReposicionCompraProvedor.php';
         $.ajax({
@@ -271,7 +270,7 @@ $(function () {
         });
         return false;
     });
-    
+
     $('#bt-reporteFAC_ANULADAS2').on('click', function () {
         var desde = $('#bd-desde').val();
         var hasta = $('#bd-hasta').val();
@@ -490,22 +489,31 @@ function reporteEXCEL() {
 
 function reporteReposicionVentas() {
     var bodega = $('#cb-bodega').val();
-    var operador = $('#cb-operador').val();    
-    var stock = $('#txt-stock').val();    
-    var ufc = $('#bd-ufc').val();    
-    var tipo = $('#cb-tipo').val();    
-    var desde = $('#bd-desde').val();    
-    var hasta = $('#bd-hasta').val();    
-    window.location.href = '../php/ExcelReposicion.php?bodega='+bodega+'&operador='+operador+'&stock='+stock+'&ufc='+ufc+'&tipo='+tipo+'&desde='+desde+'&hasta='+hasta;
+    var operador = $('#cb-operador').val();
+    var stock = $('#txt-stock').val();
+    var ufc = $('#bd-ufc').val();
+    var tipo = $('#cb-tipo').val();
+    var desde = $('#bd-desde').val();
+    var hasta = $('#bd-hasta').val();
+    window.location.href = '../php/ExcelReposicion.php?bodega=' + bodega + '&operador=' + operador + '&stock=' + stock + '&ufc=' + ufc + '&tipo=' + tipo + '&desde=' + desde + '&hasta=' + hasta;
 }
 
 function reporteReposicionCompras() {
     var bodega = $('#cb-bodegacomp').val();
-    var operador = $('#cb-operadorcomp').val();    
-    var stock = $('#txt-stockcomp').val();            
-    var desde = $('#bd-desdecomp').val();    
-    var hasta = $('#bd-hastacomp').val();    
-    window.location.href = '../php/ExcelReposicionCompras.php?bodega='+bodega+'&operador='+operador+'&stock='+stock+'&desde='+desde+'&hasta='+hasta;
+    var operador = $('#cb-operadorcomp').val();
+    var stock = $('#txt-stockcomp').val();
+    var desde = $('#bd-desdecomp').val();
+    var hasta = $('#bd-hastacomp').val();
+    window.location.href = '../php/ExcelReposicionCompras.php?bodega=' + bodega + '&operador=' + operador + '&stock=' + stock + '&desde=' + desde + '&hasta=' + hasta;
+}
+
+function reporteReposicionComprasBR() {
+    var desde = $('#bd-desde').val();
+    var hasta = $('#bd-hasta').val();
+    var stock = $('#txt-stock').val();
+    var operador = $('#cb-operador').val();
+    var tipo = $('#cb-tipo').val();
+    window.location.href = '../php/ExcelReposicionComprasBR.php?operador=' + operador + '&stock=' + stock + '&desde=' + desde + '&hasta=' + hasta + '&tipo=' + tipo;
 }
 
 

@@ -24,19 +24,19 @@ switch ($operador) {
         break;
 }
 
-$vaciartmpventas = mysql_query("TRUNCATE tmpventastotal");
-$consolidarventas = mysql_query("INSERT INTO tmpventastotal(codpro,total)
-SELECT
-d.CODPROD03,
-sum(d.CANTID03)
-FROM
-factura_detalle AS d
-INNER JOIN factura_cabecera AS c ON d.NOCOMP03 = c.nofact31
-INNER JOIN bodegas as b ON d.bodega = b.nombre
-WHERE d.TIPOTRA03 = '80' AND c.cvanulado31 <> '9' AND b.estado = '1' AND d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59'
-GROUP BY d.CODPROD03
-ORDER BY b.orden,d.CODPROD03");
-$vaciarcompras = mysql_query("TRUNCATE tmpcompras");
+        $vaciartmpventas = mysql_query("TRUNCATE tmpventastotal");
+        $consolidarventas = mysql_query("INSERT INTO tmpventastotal(codpro,total)
+        SELECT
+        d.CODPROD03,
+        sum(d.CANTID03)
+        FROM
+        factura_detalle AS d
+        INNER JOIN factura_cabecera AS c ON d.NOCOMP03 = c.nofact31
+        INNER JOIN bodegas as b ON d.bodega = b.cod_local
+        WHERE d.TIPOTRA03 = '80' AND c.cvanulado31 <> '9' AND b.estado = '1' AND d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59'
+        GROUP BY d.CODPROD03
+        ORDER BY b.orden,d.CODPROD03");
+        $vaciarcompras = mysql_query("TRUNCATE tmpcompras");
 switch ($tipo) {
     case '0001':
         echo '<table class="table table-striped table-condensed table-hover table-responsive">

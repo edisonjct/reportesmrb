@@ -74,7 +74,7 @@ $id = $row['id'];
         <form class="form-inline" role="form" method="GET" id="busqueda">
             <center>       
                 <div class="form-group">                        
-                    <select required="required" id="cb-bodega" class="selectpicker" multiple data-actions-box="true" data-live-search="true" data-selected-text-format="count > 3">                        
+                    <select required="required" id="cb-bodega" class="selectpicker" multiple data-actions-box="true" data-live-search="true" data-selected-text-format="count > 3" title="Selecione Bodegas">                        
                         <?php
                         $query = mysql_query("SELECT bodegas.cod_local as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
                         if (mysql_num_rows($query) > 0) {

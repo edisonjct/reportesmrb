@@ -81,7 +81,7 @@ $id = $row['id'];
                         <br>
                         <center>    
                             <div class="form-group">                        
-                                <select required="required" id="cb-bodega" class="form-control" data-toggle="tooltip" title="Selecione Bodegas">                        
+                                <select required="required" id="cb-bodega" class="selectpicker" data-live-search="true" data-selected-text-format="count > 3" data-toggle="tooltip" title="Selecione Bodegas">                        
                                     <?php
                                     $query = mysql_query("SELECT bodegas.cod_local as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
                                     if (mysql_num_rows($query) > 0) {
@@ -122,9 +122,9 @@ $id = $row['id'];
                         </br>
                         <center>    
                             <div class="form-group">                        
-                                <select required="required" id="cb-bodegacomp" class="form-control" data-toggle="tooltip" title="Selecione Bodegas">                        
+                                <select required="required" id="cb-bodegacomp" class="selectpicker" data-live-search="true" data-selected-text-format="count > 3" data-toggle="tooltip" title="Selecione Bodegas">
                                     <?php
-                                    $query = mysql_query("SELECT bodegas.nombre as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
+                                    $query = mysql_query("SELECT bodegas.cod_local as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
                                     if (mysql_num_rows($query) > 0) {
                                         while ($row = mysql_fetch_array($query)) {
                                             echo "<option value='" . $row['codigo'] . "'>" . $row['nombre'] . "</option>\n";
@@ -147,8 +147,8 @@ $id = $row['id'];
                                 </select>
                             </div> 
                             <div class="form-group">                                
-                                <input type="date" class="form-control" id="bd-desdecomp" name="desde" data-toggle="tooltip" title="Selecione Fecha de Compra Desde"/>
-                                <input type="date" class="form-control" id="bd-hastacomp" name="hasta" data-toggle="tooltip" title="Selecione Fecha de Compra Hasta"/>
+                                <input required="required" type="date" class="form-control" id="bd-desdecomp" name="desde" data-toggle="tooltip" title="Selecione Fecha de Compra Desde"/>
+                                <input required="required" type="date" class="form-control" id="bd-hastacomp" name="hasta" data-toggle="tooltip" title="Selecione Fecha de Compra Hasta"/>
                             </div>                            
                             <button id="bt-reposicioncompras" class="btn btn-primary" data-toggle="tooltip" title="Buscar">Buscar</button>        
                             <a data-toggle="tooltip" title="Exportar a Excel" target="_blank" href="javascript:reporteReposicionCompras();" class="btn btn-success">Excel</a>

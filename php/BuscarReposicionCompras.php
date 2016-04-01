@@ -58,7 +58,7 @@ switch ($tipo) {
           <th width="200">UFC</th>
           <th width="200">UFT</th>
           <th width="100">CDI</th>
-          <th width="100">' . $bodega . '</th>
+          <th width="100">LOCAL</th>
           <th width="100">C.TRANSF</th>          
           <th width="100">PEDIDO</th>
             </tr>';
@@ -146,7 +146,7 @@ switch ($tipo) {
           <th width="200">UFC</th>
           <th width="200">UFT</th>
           <th width="100">CDI</th>
-          <th width="100">' . $bodega . '</th>
+          <th width="100">LOCAL</th>
           <th width="100">C.TRANSF</th>          
           <th width="100">PEDIDO</th>
             </tr>';        
@@ -234,7 +234,7 @@ switch ($tipo) {
           <th width="200">UFC</th>
           <th width="200">UFT</th>
           <th width="100">CDI</th>
-          <th width="100">' . $bodega . '</th>
+          <th width="100">LOCAL</th>
           <th width="100">C.TRANSF</th>          
           <th width="100">PEDIDO</th>
             </tr>';        
