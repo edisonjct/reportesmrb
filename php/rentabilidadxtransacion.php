@@ -15,19 +15,19 @@ if ($desde == false){
 	if ($tipo == '80')
 {
 //EJECUTAMOS LA CONSULTA DE BUSQUEDA
-$registro = mysql_query(
-"SELECT
-COUNT(DISTINCT d.NOCOMP03) as FACTURAS,
-SUM(CANTID03) AS LIBROS,
-ROUND((SUM(PRECVTA03-DESCVTA03-desctotvta03)),2) AS VENTA,
-SUM(VALOR03) as COSTO
-FROM
-factura_detalle AS d
-INNER JOIN factura_cabecera ON d.NOCOMP03 = factura_cabecera.nofact31
-WHERE
-d.TIPOTRA03 = '80' AND
-d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND
-d.bodega = '$bodega' AND factura_cabecera.cvanulado31 <> '9'
+        $registro = mysql_query(
+        "SELECT
+        COUNT(DISTINCT d.NOCOMP03) as FACTURAS,
+        SUM(CANTID03) AS LIBROS,
+        ROUND((SUM(PRECVTA03-DESCVTA03-desctotvta03)),2) AS VENTA,
+        SUM(VALOR03) as COSTO
+        FROM
+        factura_detalle AS d
+        INNER JOIN factura_cabecera ON d.NOCOMP03 = factura_cabecera.nofact31
+        WHERE
+        d.TIPOTRA03 = '80' AND
+        d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND
+        d.bodega = '$bodega' AND factura_cabecera.cvanulado31 <> '9'
 "
 );
 
@@ -56,18 +56,18 @@ echo '</table>';
 if ($tipo == '22')
 {
     $registro = mysql_query(
-"SELECT
-COUNT(DISTINCT d.NOCOMP03) as NOTAS,
-SUM(CANTID03) AS LIBROS,
-ROUND((SUM(PRECVTA03-DESCVTA03-desctotvta03)),2) AS VENTA,
-SUM(VALOR03) as COSTO
-FROM
-factura_detalle AS d
-WHERE
-d.TIPOTRA03 = '22' AND d.cvanulado03 = 'N' AND
-d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND
-d.bodega = '$bodega' 
-"
+        "SELECT
+        COUNT(DISTINCT d.NOCOMP03) as NOTAS,
+        SUM(CANTID03) AS LIBROS,
+        ROUND((SUM(PRECVTA03-DESCVTA03-desctotvta03)),2) AS VENTA,
+        SUM(VALOR03) as COSTO
+        FROM
+        factura_detalle AS d
+        WHERE
+        d.TIPOTRA03 = '22' AND d.cvanulado03 = 'N' AND
+        d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND
+        d.bodega = '$bodega' 
+        "
 );
 
 echo '<table class="table table-striped table-condensed table-hover">
