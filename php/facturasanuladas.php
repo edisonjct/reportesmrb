@@ -5,9 +5,6 @@ $desde = $_GET['desde'];
 $hasta = $_GET['hasta'];
 $bodega = $_GET['bodega'];
 
-
-//COMPROBAMOS QUE LAS FECHAS EXISTAN
-
 if ($bodega == 'TODOS'){
 $registro = mysql_query(
 "SELECT

@@ -24,6 +24,7 @@ $id = $row['id'];
         <link rel="stylesheet" href="../css/bootstrap.css">        
         <link rel="stylesheet" href="../css/bootstrap.min.css">
         <link rel="stylesheet" href="../css/bootstrap-select.css">
+        <link rel="stylesheet" href="../css/estilos.css">
         <script src="../js/jquery.js"></script>
         <script src="../js/bootstrap-select.js"></script>
         <script src="../js/myjava.js"></script>
@@ -81,7 +82,7 @@ $id = $row['id'];
                         <br>
                         <center>    
                             <div class="form-group">                        
-                                <select required="required" id="cb-bodega" class="selectpicker" data-live-search="true" data-selected-text-format="count > 3" data-toggle="tooltip" title="Selecione Bodegas">                        
+                                <select id="cb-bodega" class="selectpicker" data-live-search="true" data-selected-text-format="count > 3" data-toggle="tooltip" title="Selecione Bodegas">                        
                                     <?php
                                     $query = mysql_query("SELECT bodegas.cod_local as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
                                     if (mysql_num_rows($query) > 0) {
@@ -101,6 +102,13 @@ $id = $row['id'];
                             <div class="form-group">                    
                                 <input type="date" class="form-control" id="bd-ufc" name="ufc" data-toggle="tooltip" title="Selecione Ultima Fecha de Compra"/>
                             </div>
+                            <div class="form-group">    
+                                <select required="required" id="cb-tipo" class="form-control" data-toggle="tooltip" title="Tipo de Provedor">
+                                    <option value="0002">NACIONAL</option>
+                                    <option value="0003">CONSIGNADO</option>
+                                    <option value="0001">INTERNACIONAL</option>
+                                </select>
+                            </div>                                
                             <div class="form-group">    
                                 <select required="required" id="cb-tipo" class="form-control" data-toggle="tooltip" title="Tipo de Provedor">
                                     <option value="0002">NACIONAL</option>
@@ -137,7 +145,7 @@ $id = $row['id'];
                                     <option value='2'>=</option>
                                     <option value='3'><=</option>
                                 </select>
-                                <input type="text" class="form-control" value="1" id="txt-stockcomp" data-toggle="tooltip" title="Ingrese Stock CDI a Buscar"/>
+                                <input type="text" class="stock" value="1" id="txt-stockcomp" data-toggle="tooltip" title="Ingrese Stock CDI a Buscar"/>
                             </div>
                             <div class="form-group">    
                                 <select required="required" id="cb-tipocomp" class="form-control" data-toggle="tooltip" title="Tipo de Provedor">

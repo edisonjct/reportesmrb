@@ -1,12 +1,8 @@
 <?php
-
 session_start();
-
-if(isset($_SESSION['user_session'])!="")
-{
+if(isset($_SESSION['user_session'])!="") {
 	header("Location: vistas/index.php");
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,11 +19,10 @@ if(isset($_SESSION['user_session'])!="")
     <script type="text/javascript" src="js/script.js"></script>
 </head>
 
-<body>
-    
+<body onload="document.form.user.focus();">    
 <div class="signin-form">
 	<div class="container">    
-       <form class="form-signin" method="post" id="login-form">
+            <form class="form-signin" method="post" id="login-form" name="form">
         <center>
         <h2 class="form-signin-heading">Ingreso Al Sistema</h2><hr />
         </center>
