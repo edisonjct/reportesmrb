@@ -5,10 +5,11 @@ include('conexion.php');
 $desde = $_GET['desde'];
 $hasta = $_GET['hasta'];
 $bodega = $_GET['bodega'];
-$tipo = $_GET['tipo'];
+$pais = $_GET['pais'];
 $stock = $_GET['stock'];
 $operador = $_GET['operador'];
 $ufc = $_GET['ufc'];
+$provedor = $_GET['provedor'];
 
 
 switch ($operador) {
@@ -43,8 +44,8 @@ echo '<table class="table table-striped table-condensed table-hover table-respon
             </tr>';
 
 
-    $vaciarufc = mysql_query("DELETE FROM tmpultimafechacompra");
-    $ufcompra = mysql_query("INSERT INTO tmpultimafechacompra (codprod,fecha,cantidad)
+$vaciarufc = mysql_query("DELETE FROM tmpultimafechacompra");
+$ufcompra = mysql_query("INSERT INTO tmpultimafechacompra (codprod,fecha,cantidad)
     SELECT
     uf.CODPROD03,	
     max(DATE_FORMAT(uf.FECMOV03, '%Y-%m-%d')),
@@ -54,8 +55,8 @@ echo '<table class="table table-striped table-condensed table-hover table-respon
     WHERE
     uf.TIPOTRA03 IN ('30', '01', '49', '37') AND uf.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND uf.bodega = '01'
     GROUP BY uf.CODPROD03 ORDER BY uf.CODPROD03");
-    $vaciartablaventas = mysql_query("DELETE FROM tmpventascantidadbodega");
-    $ventas = mysql_query("INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,cantidad) SELECT
+$vaciartablaventas = mysql_query("DELETE FROM tmpventascantidadbodega");
+$ventas = mysql_query("INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,cantidad) SELECT
 	m.codprod01,
         m.codbar01,
         f.bodega,
@@ -66,14 +67,15 @@ echo '<table class="table table-striped table-condensed table-hover table-respon
         LEFT JOIN factura_cabecera fa ON f.NOCOMP03 = fa.nofact31    
         WHERE f.TIPOTRA03 = '80' AND fa.cvanulado31 <> '9' AND f.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND f.bodega IN ($bodega)
         GROUP BY f.bodega,f.CODPROD03");
-    $vaciartablastock = mysql_query("DELETE FROM tmpstocklocal");
-    $stocklocal = mysql_query("INSERT INTO tmpstocklocal(codpro,stock,bodega)
+$vaciartablastock = mysql_query("DELETE FROM tmpstocklocal");
+$stocklocal = mysql_query("INSERT INTO tmpstocklocal(codpro,stock,bodega)
         SELECT
         i.codprod01,
         i.cantact01,
         i.bodega
             FROM
         INVENTARIO i WHERE i.bodega = '$bodega'");
+if ($provedor == 0) {
     $registro = mysql_query("SELECT
         m.codprod01 AS interno,
         m.codbar01 AS codigo,
@@ -86,6 +88,8 @@ echo '<table class="table table-striped table-condensed table-hover table-respon
         m.infor08 as ubicacion,
         m.cantact01 AS CDI,
         l.stock AS BODEGA,
+	p.tipcte01 as tipo,
+	p.coddest01 as codprov,
         CASE WHEN v.cantidad > 0 THEN v.cantidad ELSE '0' END AS venta,
         CASE 
             WHEN m.cantact01 > v.cantidad THEN v.cantidad 
@@ -99,14 +103,45 @@ echo '<table class="table table-striped table-condensed table-hover table-respon
         LEFT JOIN editoriales ON m.infor02 = editoriales.codigo
         INNER JOIN categorias ON m.catprod01 = categorias.codcate
 	LEFT JOIN tmpultimafechacompra AS ufc ON m.codprod01 = ufc.codprod
-        WHERE l.stock $signo '$stock' AND p.tipcte01 = '$tipo' AND ufc.fecha >= '$ufc 00:00:00'
+        WHERE l.stock >= '3' AND p.loccte01 IN ($pais) AND ufc.fecha >= '$ufc 00:00:00'
         ORDER BY v.cantidad DESC");
+} else {
+    $registro = mysql_query("SELECT
+        m.codprod01 AS interno,
+        m.codbar01 AS codigo,
+        m.desprod01 as titulo,
+        categorias.desccate as categoria,
+        autores.nombres AS autor,
+        editoriales.razon AS editorial,
+        p.nomcte01 AS provedor,       
+        DATE_FORMAT(ufc.fecha,'%Y-%m-%d') as uf,
+        m.infor08 as ubicacion,
+        m.cantact01 AS CDI,
+        l.stock AS BODEGA,
+	p.tipcte01 as tipo,
+	p.coddest01 as codprov,
+        CASE WHEN v.cantidad > 0 THEN v.cantidad ELSE '0' END AS venta,
+        CASE 
+            WHEN m.cantact01 > v.cantidad THEN v.cantidad 
+            WHEN m.cantact01 < v.cantidad THEN m.cantact01 ELSE '0' END AS pedido
+        FROM
+        maepro AS m
+        INNER JOIN tmpstocklocal AS l ON m.codprod01 = l.codpro
+        LEFT JOIN tmpventascantidadbodega AS v ON m.codprod01 = v.idpro
+        INNER JOIN provedores AS p ON m.proved101 = p.coddest01
+        LEFT JOIN autores ON m.infor01 = autores.codigo
+        LEFT JOIN editoriales ON m.infor02 = editoriales.codigo
+        INNER JOIN categorias ON m.catprod01 = categorias.codcate
+	LEFT JOIN tmpultimafechacompra AS ufc ON m.codprod01 = ufc.codprod
+        WHERE l.stock >= '3' AND p.loccte01 IN ($pais) AND p.coddest01= '$provedor' AND ufc.fecha >= '$ufc 00:00:00'
+        ORDER BY v.cantidad DESC");
+}
 
-    $count = '0';
-    if (mysql_num_rows($registro) > 0) {
-        while ($registro2 = mysql_fetch_array($registro)) {
-            $count = $count + 1;
-            echo '<tr>
+$count = '0';
+if (mysql_num_rows($registro) > 0) {
+    while ($registro2 = mysql_fetch_array($registro)) {
+        $count = $count + 1;
+        echo '<tr>
         <td><h6>' . $count . '</h6></td>
         <td><h6>' . $registro2['codigo'] . '</h6></td>
         <td><h6>' . $registro2['titulo'] . '</h6></td>
@@ -121,10 +156,10 @@ echo '<table class="table table-striped table-condensed table-hover table-respon
         <td class="warning"><h6>' . number_format($registro2['venta'], 0, '.', ',') . '</h6></td>         
         <td class="danger"><h6>' . number_format($registro2['pedido'], 0, '.', ',') . '</h6></td>
       </tr>';
-        }
-    } else {
-        echo '<tr><td colspan="13"><div class="alert alert-danger">
+    }
+} else {
+    echo '<tr><td colspan="13"><div class="alert alert-danger">
             <strong>NO SE ENCONTRARON RESULTADOS</strong>
             </div></td></tr>';
-    }
-    echo '</table>';
+}
+echo '</table>';

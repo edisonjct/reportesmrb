@@ -7,9 +7,9 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="procesar.js"></script>
     <?php
-      include("configuracion.inc.php");
-      $link=conectar($bd_host,$bd_usuario,$bd_pwd,$bd_nombre);      
-      $c=mysql_query("select * from zd_country order by name ASC",$link);
+      include("../php/conexion.php");
+      
+      $c=mysql_query("select * from zd_country order by name ASC");
     ?>
     <style></style>
   </head>

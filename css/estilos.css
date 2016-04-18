@@ -21,8 +21,20 @@ and open the template in the editor.
 #bd-hasta { 
     width: 140px;
 }
-#cb-bodega { 
-    width: 10px;
-}
 
+#cb-provedor {
+    width: 160px;
+}
+#txt-stockcomp { 
+    width: 50px;
+}
+#cb-provedorcomp {
+    width: 160px;
+}
+#bd-desdecomp { 
+    width: 140px;
+}
+#bd-hastacomp { 
+    width: 140px;
+}
 

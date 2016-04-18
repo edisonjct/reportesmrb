@@ -82,7 +82,7 @@ $id = $row['id'];
                         <br>
                         <center>    
                             <div class="form-group">                        
-                                <select id="cb-bodega" class="selectpicker" data-live-search="true" data-selected-text-format="count > 3" data-toggle="tooltip" title="Selecione Bodegas">                        
+                                <select id="cb-bodega" class="selectpicker" data-live-search="true" data-selected-text-format="count > 3" data-toggle="tooltip" title="Bodegas" data-width="100px">
                                     <?php
                                     $query = mysql_query("SELECT bodegas.cod_local as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
                                     if (mysql_num_rows($query) > 0) {
@@ -91,37 +91,46 @@ $id = $row['id'];
                                         }
                                     }
                                     ?>                                                                    
-                                </select>
+                                </select>                                                                
+                            </div>  
+                            <div class="form-group">                    
                                 <select required="required" id="cb-operador" class="form-control" data-toggle="tooltip" title="Selecione Operador">
                                     <option value='1'>>=</option>
                                     <option value='2'>=</option>
                                     <option value='3'><=</option>
                                 </select>
+                            </div>
+                            <div class="form-group">                    
                                 <input type="text" class="form-control" value="1" id="txt-stock" data-toggle="tooltip" title="Ingrese Stock a Buscar"/>
-                            </div>                            
+                            </div>
                             <div class="form-group">                    
                                 <input type="date" class="form-control" id="bd-ufc" name="ufc" data-toggle="tooltip" title="Selecione Ultima Fecha de Compra"/>
+                            </div>                                                          
+                            <div class="form-group">    
+                                <select required="required" id="cb-pais" class="selectpicker" data-live-search="true" multiple data-selected-text-format="count > 3" data-toggle="tooltip" title="Pais" data-width="100px">
+                                    <?php
+                                    $query = mysql_query("SELECT codtab as id,nomtab as marca FROM maetab WHERE numtab = '64' AND codtab <> '' order by codtab");
+                                    if (mysql_num_rows($query) > 0) {
+                                        while ($row = mysql_fetch_array($query)) {
+                                            echo "<option value='" . $row['id'] . "'>" . $row['marca'] . "</option>\n";
+                                        }
+                                    }
+                                    ?>                                                                 
+                                </select>
                             </div>
                             <div class="form-group">    
-                                <select required="required" id="cb-tipo" class="form-control" data-toggle="tooltip" title="Tipo de Provedor">
-                                    <option value="0002">NACIONAL</option>
-                                    <option value="0003">CONSIGNADO</option>
-                                    <option value="0001">INTERNACIONAL</option>
+                                <select required="required" id="cb-provedor" class="form-control" data-actions-box="true" data-live-search="true" data-selected-text-format="count > 3" data-toggle="tooltip" title="Provedor">
+                                    <option>Selecione Pais</option>
                                 </select>
-                            </div>                                
-                            <div class="form-group">    
-                                <select required="required" id="cb-tipo" class="form-control" data-toggle="tooltip" title="Tipo de Provedor">
-                                    <option value="0002">NACIONAL</option>
-                                    <option value="0003">CONSIGNADO</option>
-                                    <option value="0001">INTERNACIONAL</option>
-                                </select>
-                            </div>                                
+                            </div>
                             <div class="form-group">                                
                                 <input type="date" class="form-control" id="bd-desde" name="desde" data-toggle="tooltip" title="Selecione fecha Desde"/>
                                 <input type="date" class="form-control" id="bd-hasta" name="hasta" data-toggle="tooltip" title="Selecione fecha Hasta"/>
                             </div>                            
-                            <button id="bt-reposicion" class="btn btn-primary" data-toggle="tooltip" title="Buscar">Buscar</button>        
-                            <a data-toggle="tooltip" title="Exportar a Excel" target="_blank" href="javascript:reporteReposicionVentas();" class="btn btn-success">Excel</a>
+                            <div class="form-group">                                
+                                <button id="bt-reposicion" class="btn btn-primary" data-toggle="tooltip" title="Buscar">Buscar</button>
+                                <a data-toggle="tooltip" title="Exportar a Excel" target="_blank" href="javascript:reporteReposicionVentas();" class="btn btn-success">Excel</a>
+                            </div>                                                        
                         </center> 
                         </br>
                         <div class="table-responsive" id="agrega-registros"></div>
@@ -129,8 +138,8 @@ $id = $row['id'];
                     <div role="tabpanel" class="tab-pane" id="seccion2">
                         </br>
                         <center>    
-                            <div class="form-group">                        
-                                <select required="required" id="cb-bodegacomp" class="selectpicker" data-live-search="true" data-selected-text-format="count > 3" data-toggle="tooltip" title="Selecione Bodegas">
+                            <div class="form-group"> 
+                                <select id="cb-bodegacomp" class="selectpicker" data-live-search="true" data-selected-text-format="count > 3" data-toggle="tooltip" title="Bodegas" data-width="100px">                                
                                     <?php
                                     $query = mysql_query("SELECT bodegas.cod_local as codigo,bodegas.nombre as nombre FROM bodegas INNER JOIN usuariobodegas ON usuariobodegas.id_bodega = bodegas.cod_local WHERE bodegas.estado = '1' AND usuariobodegas.id_usuario = '$id' ORDER BY bodegas.orden");
                                     if (mysql_num_rows($query) > 0) {
@@ -139,19 +148,33 @@ $id = $row['id'];
                                         }
                                     }
                                     ?>                                 
-                                </select>                               
+                                </select>                                                                                          
+                            </div>
+                            <div class="form-group">    
                                 <select required="required" id="cb-operadorcomp" class="form-control" data-toggle="tooltip" title="Selecione Operador">
                                     <option value='1'>>=</option>
                                     <option value='2'>=</option>
                                     <option value='3'><=</option>
-                                </select>
-                                <input type="text" class="stock" value="1" id="txt-stockcomp" data-toggle="tooltip" title="Ingrese Stock CDI a Buscar"/>
-                            </div>
+                                </select>     
+                            </div> 
                             <div class="form-group">    
-                                <select required="required" id="cb-tipocomp" class="form-control" data-toggle="tooltip" title="Tipo de Provedor">
-                                    <option value="0002">NACIONAL</option>
-                                    <option value="0003">CONSIGNADO</option>
-                                    <option value="0001">INTERNACIONAL</option>
+                                <input type="text" class="form-control" value="1" id="txt-stockcomp" data-toggle="tooltip" title="Ingrese Stock CDI a Buscar"/>
+                            </div> 
+                            <div class="form-group">    
+                                <select id="cb-paiscomp" class="selectpicker" data-live-search="true" multiple data-selected-text-format="count > 3" data-toggle="tooltip" title="Pais" data-width="100px">
+                                    <?php
+                                    $query = mysql_query("SELECT codtab as id,nomtab as marca FROM maetab WHERE numtab = '64' AND codtab <> '' order by codtab");
+                                    if (mysql_num_rows($query) > 0) {
+                                        while ($row = mysql_fetch_array($query)) {
+                                            echo "<option value='" . $row['id'] . "'>" . $row['marca'] . "</option>\n";
+                                        }
+                                    }
+                                    ?> 
+                                </select>
+                            </div> 
+                            <div class="form-group">    
+                                <select required="required" id="cb-provedorcomp" class="form-control" data-toggle="tooltip" title="Tipo de Provedor">
+                                    <option>Selecione Pais</option>
                                 </select>
                             </div> 
                             <div class="form-group">                                

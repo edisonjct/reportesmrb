@@ -5,13 +5,32 @@ include('conexion.php');
 $desde = $_GET['desde'];
 $hasta = $_GET['hasta'];
 $bodega = $_GET['bodega'];
-$tipo = $_GET['tipo'];
+$pais = $_GET['pais'];
 $stock = $_GET['stock'];
 $operador = $_GET['operador'];
-
-
-
+$provedor = $_GET['provedor'];
+$verificador1 = '';
+$verificador2 = '';
+$verificaprovedor = mysql_query("select tipcte01,loccte01 from provedores WHERE codcte01 = '$provedor'");
+while($row = mysql_fetch_array($verificaprovedor)) {
+    $verificador1 =  $verificador1 . $row['tipcte01'];
+    $verificador2 =  $verificador2 . $row['loccte01'];    
+}
 switch ($operador) {
+    case '1':
+        $signo = '>=';
+        break;
+
+    case '2':
+        $signo = '=';
+        break;
+
+    case '3':
+        $signo = '<=';
+        break;
+}
+
+switch ($verificador2) {
     case '1':
         $signo = '>=';
         break;
@@ -41,9 +60,8 @@ $vaciartablacompras = mysql_query("TRUNCATE tmpstocklocacompras");
         i.bodega from factura_detalle i WHERE i.TIPOTRA03 = '11' AND i.bodega = '$bodega' AND i.CODPROD03 GROUP BY i.CODPROD03");
         $vaciartablaimportaciones = mysql_query("TRUNCATE tmpimportaciones");
         
-switch ($tipo) {
-    case '0001':  
-        
+switch ($verificador) {
+    case '0001':          
         echo '<table class="table table-striped table-condensed table-hover table-responsive">
           <tr>
           <th width="10">#</th>
