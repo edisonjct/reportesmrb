@@ -105,9 +105,9 @@ $id = $row['id'];
                             </div>
                             <div class="form-group">                    
                                 <input type="date" class="form-control" id="bd-ufc" name="ufc" data-toggle="tooltip" title="Selecione Ultima Fecha de Compra"/>
-                            </div>                                                          
+                            </div>                                   
                             <div class="form-group">    
-                                <select required="required" id="cb-pais" class="selectpicker" data-live-search="true" multiple data-selected-text-format="count > 3" data-toggle="tooltip" title="Pais" data-width="100px">
+                                <select required="required" id="cb-pais" class="selectpicker" data-live-search="true" data-selected-text-format="count > 3" data-toggle="tooltip" title="Pais" data-width="100px">
                                     <?php
                                     $query = mysql_query("SELECT codtab as id,nomtab as marca FROM maetab WHERE numtab = '64' AND codtab <> '' order by codtab");
                                     if (mysql_num_rows($query) > 0) {
@@ -120,7 +120,7 @@ $id = $row['id'];
                             </div>
                             <div class="form-group">    
                                 <select required="required" id="cb-provedor" class="form-control" data-actions-box="true" data-live-search="true" data-selected-text-format="count > 3" data-toggle="tooltip" title="Provedor">
-                                    <option>Selecione Pais</option>
+                                    <option value="0">Selecione Pais</option>
                                 </select>
                             </div>
                             <div class="form-group">                                
@@ -160,21 +160,21 @@ $id = $row['id'];
                             <div class="form-group">    
                                 <input type="text" class="form-control" value="1" id="txt-stockcomp" data-toggle="tooltip" title="Ingrese Stock CDI a Buscar"/>
                             </div> 
+                            <div class="form-group">                    
+                                <select required="required" id="cb-tipocomp" class="selectpicker" data-live-search="true" data-toggle="tooltip" title="Tipo Prove" data-width="100px">
+                                    <option value='0001'>INTERNACIONAL</option>
+                                    <option value='0002'>NACIONAL - FIRME</option>
+                                    <option value='0003'>CONSIGNADO</option>
+                                </select>
+                            </div>
                             <div class="form-group">    
-                                <select id="cb-paiscomp" class="selectpicker" data-live-search="true" multiple data-selected-text-format="count > 3" data-toggle="tooltip" title="Pais" data-width="100px">
-                                    <?php
-                                    $query = mysql_query("SELECT codtab as id,nomtab as marca FROM maetab WHERE numtab = '64' AND codtab <> '' order by codtab");
-                                    if (mysql_num_rows($query) > 0) {
-                                        while ($row = mysql_fetch_array($query)) {
-                                            echo "<option value='" . $row['id'] . "'>" . $row['marca'] . "</option>\n";
-                                        }
-                                    }
-                                    ?> 
+                                <select id="cb-paiscomp" class="form-control" data-live-search="true" data-toggle="tooltip" title="Pais" data-width="100px">
+                                    <option value="0">Selecione Tipo Prov</option>
                                 </select>
                             </div> 
                             <div class="form-group">    
                                 <select required="required" id="cb-provedorcomp" class="form-control" data-toggle="tooltip" title="Tipo de Provedor">
-                                    <option>Selecione Pais</option>
+                                    <option value="0">Selecione Pais</option>
                                 </select>
                             </div> 
                             <div class="form-group">                                

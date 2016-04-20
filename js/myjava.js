@@ -63,6 +63,7 @@ $(function () {
         var hasta = $('#bd-hastacomp').val();
         var bodega = $('#cb-bodegacomp').val();
         var pais = $('#cb-paiscomp').val();
+        var tipo = $('#cb-tipocomp').val();
         var provedor = $('#cb-provedorcomp').val();
         var stock = $('#txt-stockcomp').val();
         var operador = $('#cb-operadorcomp').val();
@@ -71,7 +72,7 @@ $(function () {
         $.ajax({
             type: 'GET',
             url: url,
-            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&tipo=' + pais + '&stock=' + stock + '&operador=' + operador + '&provedor=' + provedor,
+            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&pais=' + pais + '&stock=' + stock + '&operador=' + operador + '&provedor=' + provedor + '&tipo=' + tipo,
             success: function (datos) {
                 $('#agrega-registros-comp').html(datos);
             }
@@ -426,6 +427,17 @@ $(function () {
             data: "idpais=" + $("#cb-paiscomp").val() + "&tip=02",
             success: function (opciones) {
                 $("#cb-provedorcomp").html(opciones);
+            }
+        })
+    });
+    
+    $("#cb-tipocomp").change(function () {
+        $.ajax({
+            url: "../php/procesaprovedores.php",
+            type: "GET",
+            data: "idtipo=" + $("#cb-tipocomp").val() + "&tip=03",
+            success: function (opciones) {
+                $("#cb-paiscomp").html(opciones);
             }
         })
     });

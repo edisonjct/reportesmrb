@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/reportesmrb/vistas/ReposicionCompras.php</file>
+            <file>file:/var/www/html/reportesmrb/css/estilos.css</file>
+            <file>file:/var/www/html/reportesmrb/vistas/ventasdiarias.php</file>
+            <file>file:/var/www/html/reportesmrb/js/myjava.js</file>
+            <file>file:/var/www/html/reportesmrb/php/busca_ventadiaria.php</file>
+            <file>file:/var/www/html/reportesmrb/php/BuscarReposicionCompras.php</file>
+            <file>file:/var/www/html/reportesmrb/php/procesaprovedores.php</file>
             <file>file:/var/www/html/reportesmrb/vistas/Reposicion.php</file>
         </group>
     </open-files>

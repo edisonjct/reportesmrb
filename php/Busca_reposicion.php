@@ -26,7 +26,21 @@ switch ($operador) {
         break;
 }
 
-echo '<table class="table table-striped table-condensed table-hover table-responsive">
+if ($bodega == false) {
+    echo '<script type="text/javascript">alert("SELECIONE BODEGA");</script>';
+} else if ($ufc == false) {
+    echo '<script type="text/javascript">alert("SELECIONE FECHA DE ULTIMA COMPRA");</script>';
+} else if ($pais == false) {
+    echo '<script type="text/javascript">alert("SELECIONE UN PAIS A BUSCAR");</script>';
+} else if ($provedor == false) {
+    echo '<script type="text/javascript">alert("SELECIONE PROVEDOR");</script>';
+} else if ($desde == false) {
+    echo '<script type="text/javascript">alert("SELECIONE FECHA DESDE");</script>';
+} else if ($hasta == false) {
+    echo '<script type="text/javascript">alert("SELECIONE FECHA HASTA");</script>';
+} else {
+
+    echo '<table class="table table-striped table-condensed table-hover table-responsive">
           <tr>
           <th width="10">#</th>
           <th width="100">CODIGO</th>
@@ -44,8 +58,8 @@ echo '<table class="table table-striped table-condensed table-hover table-respon
             </tr>';
 
 
-$vaciarufc = mysql_query("DELETE FROM tmpultimafechacompra");
-$ufcompra = mysql_query("INSERT INTO tmpultimafechacompra (codprod,fecha,cantidad)
+    $vaciarufc = mysql_query("DELETE FROM tmpultimafechacompra");
+    $ufcompra = mysql_query("INSERT INTO tmpultimafechacompra (codprod,fecha,cantidad)
     SELECT
     uf.CODPROD03,	
     max(DATE_FORMAT(uf.FECMOV03, '%Y-%m-%d')),
@@ -55,8 +69,8 @@ $ufcompra = mysql_query("INSERT INTO tmpultimafechacompra (codprod,fecha,cantida
     WHERE
     uf.TIPOTRA03 IN ('30', '01', '49', '37') AND uf.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND uf.bodega = '01'
     GROUP BY uf.CODPROD03 ORDER BY uf.CODPROD03");
-$vaciartablaventas = mysql_query("DELETE FROM tmpventascantidadbodega");
-$ventas = mysql_query("INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,cantidad) SELECT
+    $vaciartablaventas = mysql_query("DELETE FROM tmpventascantidadbodega");
+    $ventas = mysql_query("INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,cantidad) SELECT
 	m.codprod01,
         m.codbar01,
         f.bodega,
@@ -67,16 +81,16 @@ $ventas = mysql_query("INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,c
         LEFT JOIN factura_cabecera fa ON f.NOCOMP03 = fa.nofact31    
         WHERE f.TIPOTRA03 = '80' AND fa.cvanulado31 <> '9' AND f.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND f.bodega IN ($bodega)
         GROUP BY f.bodega,f.CODPROD03");
-$vaciartablastock = mysql_query("DELETE FROM tmpstocklocal");
-$stocklocal = mysql_query("INSERT INTO tmpstocklocal(codpro,stock,bodega)
+    $vaciartablastock = mysql_query("DELETE FROM tmpstocklocal");
+    $stocklocal = mysql_query("INSERT INTO tmpstocklocal(codpro,stock,bodega)
         SELECT
         i.codprod01,
         i.cantact01,
         i.bodega
             FROM
         INVENTARIO i WHERE i.bodega = '$bodega'");
-if ($provedor == 0) {
-    $registro = mysql_query("SELECT
+    if ($provedor == 00001) {
+        $registro = mysql_query("SELECT
         m.codprod01 AS interno,
         m.codbar01 AS codigo,
         m.desprod01 as titulo,
@@ -105,8 +119,8 @@ if ($provedor == 0) {
 	LEFT JOIN tmpultimafechacompra AS ufc ON m.codprod01 = ufc.codprod
         WHERE l.stock >= '3' AND p.loccte01 IN ($pais) AND ufc.fecha >= '$ufc 00:00:00'
         ORDER BY v.cantidad DESC");
-} else {
-    $registro = mysql_query("SELECT
+    } else {
+        $registro = mysql_query("SELECT
         m.codprod01 AS interno,
         m.codbar01 AS codigo,
         m.desprod01 as titulo,
@@ -135,13 +149,13 @@ if ($provedor == 0) {
 	LEFT JOIN tmpultimafechacompra AS ufc ON m.codprod01 = ufc.codprod
         WHERE l.stock >= '3' AND p.loccte01 IN ($pais) AND p.coddest01= '$provedor' AND ufc.fecha >= '$ufc 00:00:00'
         ORDER BY v.cantidad DESC");
-}
+    }
 
-$count = '0';
-if (mysql_num_rows($registro) > 0) {
-    while ($registro2 = mysql_fetch_array($registro)) {
-        $count = $count + 1;
-        echo '<tr>
+    $count = '0';
+    if (mysql_num_rows($registro) > 0) {
+        while ($registro2 = mysql_fetch_array($registro)) {
+            $count = $count + 1;
+            echo '<tr>
         <td><h6>' . $count . '</h6></td>
         <td><h6>' . $registro2['codigo'] . '</h6></td>
         <td><h6>' . $registro2['titulo'] . '</h6></td>
@@ -156,10 +170,11 @@ if (mysql_num_rows($registro) > 0) {
         <td class="warning"><h6>' . number_format($registro2['venta'], 0, '.', ',') . '</h6></td>         
         <td class="danger"><h6>' . number_format($registro2['pedido'], 0, '.', ',') . '</h6></td>
       </tr>';
-    }
-} else {
-    echo '<tr><td colspan="13"><div class="alert alert-danger">
+        }
+    } else {
+        echo '<tr><td colspan="13"><div class="alert alert-danger">
             <strong>NO SE ENCONTRARON RESULTADOS</strong>
             </div></td></tr>';
+    }
+    echo '</table>';
 }
-echo '</table>';
