@@ -7,7 +7,7 @@ if(isset($_SESSION['user_session'])!="") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MR BOOKS</title>
+    <title>SRE3</title>
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="recursos/icono.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">    
@@ -20,10 +20,11 @@ if(isset($_SESSION['user_session'])!="") {
 </head>
 
 <body onload="document.form.user.focus();">    
-<div class="signin-form">
+<div class="signin-form">    
 	<div class="container">    
             <form class="form-signin" method="post" id="login-form" name="form">
         <center>
+            <img src="recursos/sre.gif" border="0" width="200" height="100">
         <h2 class="form-signin-heading">Ingreso Al Sistema</h2><hr />
         </center>
         <div id="error">
@@ -37,11 +38,15 @@ if(isset($_SESSION['user_session'])!="") {
         <input type="password" class="form-control" placeholder="Contraseña" name="password" id="password" />
         </div>
      	<hr />
+        <center>
         <div class="form-group">
             <button type="submit" class="btn btn-default" name="btn-login" id="btn-login">
     		<span class="glyphicon glyphicon-log-in"></span> &nbsp; Ingresar
 			</button> 
-        </div>  
+        </div>        
+        <p>Todos los Derechos Reservados</p>
+        <P>Copyright 2016</p>
+        </center>
       </form>
     </div>
 </div>    
