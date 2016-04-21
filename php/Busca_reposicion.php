@@ -63,11 +63,11 @@ if ($bodega == false) {
     SELECT
     uf.CODPROD03,	
     max(DATE_FORMAT(uf.FECMOV03, '%Y-%m-%d')),
-    (select im.CANTID03 from factura_detalle im WHERE im.CODPROD03=uf.CODPROD03 AND im.bodega = '01' AND im.TIPOTRA03 IN ('30', '01', '49', '37') AND im.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' ORDER BY im.FECMOV03 DESC LIMIT 1) as cantid
+    (select im.CANTID03 from factura_detalle im WHERE im.CODPROD03=uf.CODPROD03 AND im.bodega = '01' AND im.TIPOTRA03 IN ('30', '01', '49', '37') AND im.FECMOV03 BETWEEN '$ufc 00:00:00' AND '$hasta 23:59:59' ORDER BY im.FECMOV03 DESC LIMIT 1) as cantid
     FROM
 	factura_detalle uf
     WHERE
-    uf.TIPOTRA03 IN ('30', '01', '49', '37') AND uf.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND uf.bodega = '01'
+    uf.TIPOTRA03 IN ('30', '01', '49', '37') AND uf.FECMOV03 BETWEEN '$ufc 00:00:00' AND '$hasta 23:59:59' AND uf.bodega = '01'
     GROUP BY uf.CODPROD03 ORDER BY uf.CODPROD03");
     $vaciartablaventas = mysql_query("DELETE FROM tmpventascantidadbodega");
     $ventas = mysql_query("INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,cantidad) SELECT
@@ -111,13 +111,13 @@ if ($bodega == false) {
         FROM
         maepro AS m
         INNER JOIN tmpstocklocal AS l ON m.codprod01 = l.codpro
-        LEFT JOIN tmpventascantidadbodega AS v ON m.codprod01 = v.idpro
+        INNER JOIN tmpventascantidadbodega AS v ON m.codprod01 = v.idpro
         INNER JOIN provedores AS p ON m.proved101 = p.coddest01
         LEFT JOIN autores ON m.infor01 = autores.codigo
         LEFT JOIN editoriales ON m.infor02 = editoriales.codigo
         INNER JOIN categorias ON m.catprod01 = categorias.codcate
 	LEFT JOIN tmpultimafechacompra AS ufc ON m.codprod01 = ufc.codprod
-        WHERE l.stock >= '3' AND p.loccte01 IN ($pais) AND ufc.fecha >= '$ufc 00:00:00'
+        WHERE l.stock $signo '$stock' AND p.loccte01 IN ($pais) AND ufc.fecha >= '$ufc 00:00:00'
         ORDER BY v.cantidad DESC");
     } else {
         $registro = mysql_query("SELECT
@@ -141,13 +141,13 @@ if ($bodega == false) {
         FROM
         maepro AS m
         INNER JOIN tmpstocklocal AS l ON m.codprod01 = l.codpro
-        LEFT JOIN tmpventascantidadbodega AS v ON m.codprod01 = v.idpro
+        INNER JOIN tmpventascantidadbodega AS v ON m.codprod01 = v.idpro
         INNER JOIN provedores AS p ON m.proved101 = p.coddest01
         LEFT JOIN autores ON m.infor01 = autores.codigo
         LEFT JOIN editoriales ON m.infor02 = editoriales.codigo
         INNER JOIN categorias ON m.catprod01 = categorias.codcate
 	LEFT JOIN tmpultimafechacompra AS ufc ON m.codprod01 = ufc.codprod
-        WHERE l.stock >= '3' AND p.loccte01 IN ($pais) AND p.coddest01= '$provedor' AND ufc.fecha >= '$ufc 00:00:00'
+        WHERE l.stock $signo '$stock' AND p.loccte01 IN ($pais) AND p.coddest01= '$provedor' AND ufc.fecha >= '$ufc 00:00:00'
         ORDER BY v.cantidad DESC");
     }
 

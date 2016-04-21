@@ -531,16 +531,21 @@ function reporteReposicionVentas() {
     var tipo = $('#cb-tipo').val();
     var desde = $('#bd-desde').val();
     var hasta = $('#bd-hasta').val();
-    window.location.href = '../php/ExcelReposicion.php?bodega=' + bodega + '&operador=' + operador + '&stock=' + stock + '&ufc=' + ufc + '&tipo=' + tipo + '&desde=' + desde + '&hasta=' + hasta;
+    var pais = $('#cb-pais').val();
+    var provedor = $('#cb-provedor').val();
+    window.location.href = '../php/ExcelReposicion.php?bodega=' + bodega + '&operador=' + operador + '&stock=' + stock + '&ufc=' + ufc + '&pais=' + pais + '&desde=' + desde + '&hasta=' + hasta + '&provedor=' + provedor;
 }
 
 function reporteReposicionCompras() {
-    var bodega = $('#cb-bodegacomp').val();
-    var operador = $('#cb-operadorcomp').val();
-    var stock = $('#txt-stockcomp').val();
-    var desde = $('#bd-desdecomp').val();
-    var hasta = $('#bd-hastacomp').val();
-    window.location.href = '../php/ExcelReposicionCompras.php?bodega=' + bodega + '&operador=' + operador + '&stock=' + stock + '&desde=' + desde + '&hasta=' + hasta;
+        var desde = $('#bd-desdecomp').val();
+        var hasta = $('#bd-hastacomp').val();
+        var bodega = $('#cb-bodegacomp').val();
+        var pais = $('#cb-paiscomp').val();
+        var tipo = $('#cb-tipocomp').val();
+        var provedor = $('#cb-provedorcomp').val();
+        var stock = $('#txt-stockcomp').val();
+        var operador = $('#cb-operadorcomp').val();        
+        window.location.href = '../php/ExcelReposicionCompras.php?desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&pais=' + pais + '&stock=' + stock + '&operador=' + operador + '&provedor=' + provedor + '&tipo=' + tipo;
 }
 
 function reporteReposicionComprasBR() {
