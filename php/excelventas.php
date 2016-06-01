@@ -23,18 +23,20 @@ $objPHPExcel->getActiveSheet()->setCellValue('B1', 'TITULO');
 $objPHPExcel->getActiveSheet()->setCellValue('C1', 'CATEGORIA');
 $objPHPExcel->getActiveSheet()->setCellValue('D1', 'PROVEDOR');
 $objPHPExcel->getActiveSheet()->setCellValue('E1', 'PAIS');
-$objPHPExcel->getActiveSheet()->setCellValue('F1', 'CANTIDAD');
-$objPHPExcel->getActiveSheet()->setCellValue('G1', 'LOCAL');
-$objPHPExcel->getActiveSheet()->setCellValue('H1', 'FECHA UC');
-$objPHPExcel->getActiveSheet()->setAutoFilter("A1:H1");
+$objPHPExcel->getActiveSheet()->setCellValue('F1', 'IVA');
+$objPHPExcel->getActiveSheet()->setCellValue('G1', 'CANTIDAD');
+$objPHPExcel->getActiveSheet()->setCellValue('H1', 'LOCAL');
+$objPHPExcel->getActiveSheet()->setCellValue('I1', 'FECHA UC');
+$objPHPExcel->getActiveSheet()->setAutoFilter("A1:I1");
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
 $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(40);
 $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(25);
 $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(25);
 $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(15);
-$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(12);
-$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
-$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(12);
+$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(12);
+$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(12);
 
 ///////////////////////////////////////////
 if ($dato == true) {
@@ -47,6 +49,7 @@ if ($dato == true) {
                 categorias.desccate,
                 provedores.nomcte01,
                 (SELECT p.nomtab FROM paises p WHERE provedores.loccte01 = p.codtab) AS PAIS,
+                m.porciva01 as iva,
                 (SELECT max(DATE_FORMAT(uf.FECMOV03,'%Y-%m-%d'))FROM factura_detalle uf WHERE((uf.CODPROD03 = f.CODPROD03)AND(uf.TIPOTRA03 IN ('30', '01', '49','37')))) AS UFECHA 
               FROM
                 factura_detalle f
@@ -69,9 +72,10 @@ if ($dato == true) {
                     ->setCellValue('C' . $i, $registro['desccate'])
                     ->setCellValue('D' . $i, $registro['nomcte01'])
                     ->setCellValue('E' . $i, $registro['PAIS'])
-                    ->setCellValue('F' . $i, $registro['sum(f.CANTID03)'])
-                    ->setCellValue('G' . $i, $registro['bodega'])
-                    ->setCellValue('H' . $i, $registro['UFECHA']);
+                    ->setCellValue('F' . $i, $registro['iva'])
+                    ->setCellValue('G' . $i, $registro['sum(f.CANTID03)'])
+                    ->setCellValue('H' . $i, $registro['bodega'])
+                    ->setCellValue('I' . $i, $registro['UFECHA']);
             $i++;
         }
     }
@@ -85,6 +89,7 @@ if ($dato == true) {
                 categorias.desccate,
                 provedores.nomcte01,
                 (SELECT p.nomtab FROM paises p WHERE provedores.loccte01 = p.codtab) AS PAIS,
+                m.porciva01 as iva,
                 (SELECT max(DATE_FORMAT(uf.FECMOV03,'%Y-%m-%d'))FROM factura_detalle uf WHERE((uf.CODPROD03 = f.CODPROD03)AND(uf.TIPOTRA03 IN ('30', '01', '49','37')))) AS UFECHA 
               FROM
                 factura_detalle f
@@ -107,9 +112,10 @@ if ($dato == true) {
                     ->setCellValue('C' . $i, $registro['desccate'])
                     ->setCellValue('D' . $i, $registro['nomcte01'])
                     ->setCellValue('E' . $i, $registro['PAIS'])
-                    ->setCellValue('F' . $i, $registro['sum(f.CANTID03)'])
-                    ->setCellValue('G' . $i, $registro['bodega'])
-                    ->setCellValue('H' . $i, $registro['UFECHA']);
+                    ->setCellValue('F' . $i, $registro['iva'])
+                    ->setCellValue('G' . $i, $registro['sum(f.CANTID03)'])
+                    ->setCellValue('H' . $i, $registro['bodega'])
+                    ->setCellValue('I' . $i, $registro['UFECHA']);
             $i++;
         }
     }
