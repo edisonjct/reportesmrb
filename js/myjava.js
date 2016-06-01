@@ -44,13 +44,14 @@ $(function () {
         var stock = $('#txt-stock').val();
         var operador = $('#cb-operador').val();
         var ufc = $('#bd-ufc').val();
-        var provedor = $('#cb-provedor').val();        
+        var provedor = $('#cb-provedor').val();    
+        var usuario = $('#usuario').val();  
         $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
         var url = '../php/Busca_reposicion.php';
         $.ajax({
             type: 'GET',
             url: url,
-            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&pais=' + pais + '&stock=' + stock + '&operador=' + operador + '&ufc=' + ufc + '&provedor=' + provedor,
+            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&pais=' + pais + '&stock=' + stock + '&operador=' + operador + '&ufc=' + ufc + '&provedor=' + provedor + '&usuario=' + usuario,
             success: function (datos) {
                 $('#agrega-registros').html(datos);
             }

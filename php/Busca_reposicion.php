@@ -10,7 +10,7 @@ $stock = $_GET['stock'];
 $operador = $_GET['operador'];
 $ufc = $_GET['ufc'];
 $provedor = $_GET['provedor'];
-
+$usuario = $_GET['usuario'];
 
 switch ($operador) {
     case '1':
@@ -58,19 +58,22 @@ if ($bodega == false) {
             </tr>';
 
 
-    $vaciarufc = mysql_query("DELETE FROM tmpultimafechacompra");
-    $ufcompra = mysql_query("INSERT INTO tmpultimafechacompra (codprod,fecha,cantidad)
-    SELECT
-    uf.CODPROD03,	
-    max(DATE_FORMAT(uf.FECMOV03, '%Y-%m-%d')),
-    (select im.CANTID03 from factura_detalle im WHERE im.CODPROD03=uf.CODPROD03 AND im.bodega = '01' AND im.TIPOTRA03 IN ('30', '01', '49', '37') AND im.FECMOV03 BETWEEN '$ufc 00:00:00' AND '$hasta 23:59:59' ORDER BY im.FECMOV03 DESC LIMIT 1) as cantid
-    FROM
-	factura_detalle uf
-    WHERE
-    uf.TIPOTRA03 IN ('30', '01', '49', '37') AND uf.FECMOV03 BETWEEN '$ufc 00:00:00' AND '$hasta 23:59:59' AND uf.bodega = '01'
-    GROUP BY uf.CODPROD03 ORDER BY uf.CODPROD03");
-    $vaciartablaventas = mysql_query("DELETE FROM tmpventascantidadbodega");
-    $ventas = mysql_query("INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,cantidad) SELECT
+        $sqlvaciarufc = "DELETE FROM tmpultimafechacompra;";
+        $vaciarufc = mysql_query($sqlvaciarufc);
+        $sqlufcompra = "INSERT INTO tmpultimafechacompra (codprod,fecha,cantidad)
+        SELECT
+        uf.CODPROD03,	
+        max(DATE_FORMAT(uf.FECMOV03, '%Y-%m-%d')),
+        (select im.CANTID03 from factura_detalle im WHERE im.CODPROD03=uf.CODPROD03 AND im.bodega = '01' AND im.TIPOTRA03 IN ('30', '01', '49', '37') AND im.FECMOV03 BETWEEN '$ufc 00:00:00' AND '$hasta 23:59:59' ORDER BY im.FECMOV03 DESC LIMIT 1) as cantid
+        FROM
+            factura_detalle uf
+        WHERE
+        uf.TIPOTRA03 IN ('30', '01', '49', '37') AND uf.FECMOV03 BETWEEN '$ufc 00:00:00' AND '$hasta 23:59:59' AND uf.bodega = '01'
+        GROUP BY uf.CODPROD03 ORDER BY uf.CODPROD03;";
+        $ufcompra = mysql_query($sqlufcompra);
+        $sqlvaciartablaventas = "DELETE FROM tmpventascantidadbodega;";
+        $vaciartablaventas = mysql_query($sqlvaciartablaventas);
+        $sqlventas = "INSERT INTO tmpventascantidadbodega(idpro,codbar,bodega,cantidad) SELECT
 	m.codprod01,
         m.codbar01,
         f.bodega,
@@ -80,17 +83,20 @@ if ($bodega == false) {
         LEFT JOIN maepro m ON f.CODPROD03 = m.codprod01
         LEFT JOIN factura_cabecera fa ON f.NOCOMP03 = fa.nofact31    
         WHERE f.TIPOTRA03 = '80' AND fa.cvanulado31 <> '9' AND f.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND f.bodega IN ($bodega)
-        GROUP BY f.bodega,f.CODPROD03");
-    $vaciartablastock = mysql_query("DELETE FROM tmpstocklocal");
-    $stocklocal = mysql_query("INSERT INTO tmpstocklocal(codpro,stock,bodega)
+        GROUP BY f.bodega,f.CODPROD03;";
+        $ventas=  mysql_query($sqlventas);
+        $sqlvaciartablastock = "DELETE FROM tmpstocklocal;";
+        $vaciartablastock = mysql_query($sqlvaciartablastock);
+        $sqlstocklocal = "INSERT INTO tmpstocklocal(codpro,stock,bodega)
         SELECT
         i.codprod01,
         i.cantact01,
         i.bodega
             FROM
-        INVENTARIO i WHERE i.bodega = '$bodega'");
+        INVENTARIO i WHERE i.bodega = '$bodega';";
+        $stocklocal = mysql_query($sqlstocklocal);
     if ($provedor == 00001) {
-        $registro = mysql_query("SELECT
+        $sqlregistro = "SELECT
         m.codprod01 AS interno,
         m.codbar01 AS codigo,
         m.desprod01 as titulo,
@@ -118,9 +124,12 @@ if ($bodega == false) {
         INNER JOIN categorias ON m.catprod01 = categorias.codcate
 	LEFT JOIN tmpultimafechacompra AS ufc ON m.codprod01 = ufc.codprod
         WHERE l.stock $signo '$stock' AND p.loccte01 IN ($pais) AND ufc.fecha >= '$ufc 00:00:00'
-        ORDER BY v.cantidad DESC");
+        ORDER BY v.cantidad DESC;";
+        $registro = mysql_query($sqlregistro);
+        $sqllog = 'INSERT INTO mrbauditoria (usuario, fecha, sentencia) VALUES ("$usuario", NOW(), CONCAT("'.$sqlvaciarufc.'","'.$sqlufcompra.'","'.$sqlvaciartablaventas.'","'.$sqlventas.'","'.$sqlvaciartablastock.'","'.$sqlstocklocal.'","'.$sqlregistro.'"));';
+        $sql = mysql_query($sqllog);
     } else {
-        $registro = mysql_query("SELECT
+        $sqlregistro = "SELECT
         m.codprod01 AS interno,
         m.codbar01 AS codigo,
         m.desprod01 as titulo,
@@ -148,7 +157,10 @@ if ($bodega == false) {
         INNER JOIN categorias ON m.catprod01 = categorias.codcate
 	LEFT JOIN tmpultimafechacompra AS ufc ON m.codprod01 = ufc.codprod
         WHERE l.stock $signo '$stock' AND p.loccte01 IN ($pais) AND p.coddest01= '$provedor' AND ufc.fecha >= '$ufc 00:00:00'
-        ORDER BY v.cantidad DESC");
+        ORDER BY v.cantidad DESC";
+        $registro = mysql_query($sqlregistro);
+        $sqllog = 'INSERT INTO mrbauditoria (usuario, fecha, sentencia) VALUES ("$usuario", NOW(), CONCAT("'.$sqlvaciarufc.'","'.$sqlufcompra.'","'.$sqlvaciartablaventas.'","'.$sqlventas.'","'.$sqlvaciartablastock.'","'.$sqlstocklocal.'","'.$sqlregistro.'"));';
+        $log = mysql_query($sqllog);
     }
 
     $count = '0';

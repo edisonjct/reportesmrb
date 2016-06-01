@@ -11,7 +11,8 @@ $stmt->execute(array(":uid" => $_SESSION['user_session']));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $perfil = $row['Tipo'];
 $nombre = $row['Nombre'];
-$id = $row['id'];
+$id = $row['id']; 
+$user = $row['Usuario']
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +81,8 @@ $id = $row['id'];
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="seccion1">
                         <br>
-                        <center>    
+                        <center>
+                            <input class="hide" type="text" required="required" readonly="readonly" id="usuario" value=<?php echo $user; ?> />
                             <div class="form-group">                        
                                 <select id="cb-bodega" class="selectpicker" data-live-search="true" data-selected-text-format="count > 3" data-toggle="tooltip" title="Bodegas" data-width="100px">
                                     <?php
