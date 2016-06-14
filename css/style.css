@@ -6,6 +6,7 @@ body{
     background: #FFF;    
     margin:0px;
     font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    
 }
 header, nav{
     display: block;
@@ -28,12 +29,12 @@ section table tr td input{
     width:80%;
     height:35px;
     outline:none;
-    font-size:12px;
+    font-size:8px;
 }
 
 
 div.centerTable{
-        text-align: center;
+    text-align: center;
 }
  
 div.centerTable table {
@@ -113,6 +114,14 @@ div.centerTable table {
         text-transform: uppercase;
         color: #624c3f;
     }
+    
+    th{
+        font-size: 10px;
+    }
+    td{
+        font-size: 10px;
+        position: relative;
+    }
 
 
 .cabecera{
@@ -176,13 +185,14 @@ div.centerTable table {
 }
 
 .registros{
-    margin:auto;
-    width:auto;
-    margin-top:15px;
-    border:0px solid #6F96DF;
-    height:auto;
-    padding:10px;
+	margin:auto;
+	width:1000px;
+	margin-top:20px;
+	border:1px solid #6F96DF;
+	height:auto;
+	padding:10px;
 }
+
 
 .registros2{
     margin:auto;

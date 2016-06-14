@@ -1,5 +1,8 @@
-$(document).ready(pagination(1));
+$(document).ready();
 $(function () {
+
+    $('#codigo').focus();
+
     $('#bt-buscar').on('click', function () {
         var desde = $('#bd-desde').val();
         var hasta = $('#bd-hasta').val();
@@ -36,6 +39,55 @@ $(function () {
 
 
 
+    $('#bt-imp30').on('click', function () {
+        var desde = $('#bd-desde').val();
+        var hasta = $('#bd-hasta').val();
+        var codigo = $('#codigo').val();
+        if (codigo != '' && desde != '' && hasta != '') {
+            $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
+            var url = '../php/buscarimp30.php';
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: 'codigo=' + codigo + '&desde=' + desde + '&hasta=' + hasta,
+                success: function (datos) {
+                    $('#agrega-registros').html(datos);
+                }
+            });
+            return false;
+        } else {
+            alert("Ingrese Parametros de Busqueda");
+            return false;
+        }
+    });
+
+    $('#bt-docsc').on('click', function () {
+        var desde = $('#bd-desde').val();
+        var hasta = $('#bd-hasta').val();
+        var tipo = $('#cb-tipo').val();
+        var bodega = $('#cb-bodega').val();
+        if (bodega != '' && desde != '' && hasta != '' && tipo != '') {
+            $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
+            var url = '../php/buscar_productossc.php';
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: 'bodega=' + bodega + '&tipo=' + tipo + '&desde=' + desde + '&hasta=' + hasta,
+                success: function (datos) {
+                    $('#agrega-registros').html(datos);
+                }
+            });
+            return false;
+        } else {
+            alert("Ingrese Todos los Parametros de Busqueda");
+            return false;
+        }
+    });
+
+    $('#bt-docscexcel').on('click', function () {
+
+    });
+
     $('#bt-reposicion').on('click', function () {
         var desde = $('#bd-desde').val();
         var hasta = $('#bd-hasta').val();
@@ -44,8 +96,8 @@ $(function () {
         var stock = $('#txt-stock').val();
         var operador = $('#cb-operador').val();
         var ufc = $('#bd-ufc').val();
-        var provedor = $('#cb-provedor').val();    
-        var usuario = $('#usuario').val();  
+        var provedor = $('#cb-provedor').val();
+        var usuario = $('#usuario').val();
         $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
         var url = '../php/Busca_reposicion.php';
         $.ajax({
@@ -420,7 +472,7 @@ $(function () {
             }
         })
     });
-    
+
     $("#cb-paiscomp").change(function () {
         $.ajax({
             url: "../php/procesaprovedores.php",
@@ -431,7 +483,7 @@ $(function () {
             }
         })
     });
-    
+
     $("#cb-tipocomp").change(function () {
         $.ajax({
             url: "../php/procesaprovedores.php",
@@ -524,6 +576,20 @@ function reporteEXCEL() {
     window.location.href = '../php/excelventas.php?desde=' + desde + '&hasta=' + hasta + '&dato=' + dato + '&bodega=' + bodega;
 }
 
+function excelsupercontrol() {
+
+    var desde = $('#bd-desde').val();
+    var hasta = $('#bd-hasta').val();
+    var tipo = $('#cb-tipo').val();
+    var bodega = $('#cb-bodega').val();
+    if (bodega != '' && desde != '' && hasta != '' && tipo != '') {
+        window.location.href = '../php/buscar_productossc01.php?desde=' + desde + '&hasta=' + hasta + '&tipo=' + tipo + '&bodega=' + bodega;
+    } else {
+        alert("Ingrese Todos los Parametros de Busqueda");
+        return false;
+    }
+}
+
 function reporteReposicionVentas() {
     var bodega = $('#cb-bodega').val();
     var operador = $('#cb-operador').val();
@@ -538,15 +604,15 @@ function reporteReposicionVentas() {
 }
 
 function reporteReposicionCompras() {
-        var desde = $('#bd-desdecomp').val();
-        var hasta = $('#bd-hastacomp').val();
-        var bodega = $('#cb-bodegacomp').val();
-        var pais = $('#cb-paiscomp').val();
-        var tipo = $('#cb-tipocomp').val();
-        var provedor = $('#cb-provedorcomp').val();
-        var stock = $('#txt-stockcomp').val();
-        var operador = $('#cb-operadorcomp').val();        
-        window.location.href = '../php/ExcelReposicionCompras.php?desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&pais=' + pais + '&stock=' + stock + '&operador=' + operador + '&provedor=' + provedor + '&tipo=' + tipo;
+    var desde = $('#bd-desdecomp').val();
+    var hasta = $('#bd-hastacomp').val();
+    var bodega = $('#cb-bodegacomp').val();
+    var pais = $('#cb-paiscomp').val();
+    var tipo = $('#cb-tipocomp').val();
+    var provedor = $('#cb-provedorcomp').val();
+    var stock = $('#txt-stockcomp').val();
+    var operador = $('#cb-operadorcomp').val();
+    window.location.href = '../php/ExcelReposicionCompras.php?desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&pais=' + pais + '&stock=' + stock + '&operador=' + operador + '&provedor=' + provedor + '&tipo=' + tipo;
 }
 
 function reporteReposicionComprasBR() {

@@ -1,0 +1,23 @@
+table {  
+    color: #000; 
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif; 
+    width: 100%; 
+    border-collapse: collapse;
+    height: 15px;
+}
+td, th { 
+    border: 1px solid #808080; 
+    height: 10px; 
+    font-size: 10px;
+}
+th { 
+    background: #D3D3D3; 
+    font-weight: bold; 
+}
+td { 
+    background: #FAFAFA; 
+}
+tr:nth-child(even) td { background: #F1F1F1; }  
+tr:nth-child(odd) td { background: #FEFEFE; } 
+tr td:hover { background: #006dcc; color: #FFF; }
