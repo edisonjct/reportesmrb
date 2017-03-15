@@ -77,7 +77,9 @@ $id = $row['id'];
                     <select id="cb-tipo" class="selectpicker" data-toggle="tooltip" title="Documentos" data-width="200px">
                         <option value='80'>Ventas</option>
                         <option value='22'>Devoluciones</option>
-                        <option value='30'>Importaciones</option>                                                                                            
+                        <option value='30'>Importaciones</option>
+                        <option value='fcli'>Ventas X Clientes</option>
+                        <option value='nccli'>Devolucion X Clientes</option>                        
                     </select>  
                 </div>  
                 <div class="form-group">                        

@@ -1,5 +1,5 @@
 <?php
-	$db_host = "100.100.20.102";
+	$db_host = "100.100.20.103";
 	$db_name = "mrbookspac";
 	$db_user = "root";
 	$db_pass = "mrbooks";

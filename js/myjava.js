@@ -1,6 +1,160 @@
 $(document).ready();
 $(function () {
 
+
+    $('#bt-ventaxarchivo').on('click', function () {
+        var comprobar = $('#csv').val().length;
+        var bodega = $('#cb-bodega').val();
+        var desde = $('#bd-desde').val();
+        var hasta = $('#bd-hasta').val();
+        if (comprobar > 0) {
+            var formulario = $('#subida');
+            var archivos = new FormData();
+            var url = '../php/importarmaepro2.php?bodega=' + bodega + '&desde=' + desde + '&hasta=' + hasta;
+            for (var i = 0; i < (formulario.find('input[type=file]').length); i++) {
+                archivos.append((formulario.find('input[type="file"]:eq(' + i + ')').attr("name")), ((formulario.find('input[type="file"]:eq(' + i + ')')[0]).files[0]));
+            }
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: false,
+                data: archivos,
+                processData: false,
+                beforeSend: function () {
+                    $('#respuesta').html('<center><img src="../recursos/cargando2.gif" width="100"></center>');
+                },
+                success: function (data) {
+                    if (data == 'OK') {
+                        $('#respuesta').html(data);
+                        return false;
+                    } else {
+                        $('#respuesta').html(data);
+                        return false;
+                    }
+                }
+            });
+            return false;
+        } else {
+            alert('Selecciona un archivo CSV para importar');
+            return false;
+        }
+    });
+
+    $('#bt-kardex').on('click', function () {
+        var codigo = $('#txt-codigo').val();
+        var bodega = $('#cb-bodega').val();
+        var desde = $('#bd-desde').val();
+        var hasta = $('#bd-hasta').val();
+        if (codigo != '' && bodega != '' && desde != '' && hasta != '') {
+            $('#respuesta').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
+            var url = '../php/consultakardex.php';
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&codigo=' + codigo,
+                success: function (datos) {
+                    $('#respuesta').html(datos);
+                }
+            });
+            return false;
+        } else {
+            alert("Seleccione Todos los Parametros de Busqueda");
+            return false;
+        }
+
+    });
+
+
+    $('#bt-pedidogs').on('click', function () {
+        var comprobar = $('#csv').val().length;
+        var cliente = $('#cb-cliente').val();
+        if (comprobar > 0) {
+            var formulario = $('#subida');
+            var archivos = new FormData();
+            var url = '../php/pedidosgs.php?cliente=' + cliente + '&proceso=1';
+            for (var i = 0; i < (formulario.find('input[type=file]').length); i++) {
+                archivos.append((formulario.find('input[type="file"]:eq(' + i + ')').attr("name")), ((formulario.find('input[type="file"]:eq(' + i + ')')[0]).files[0]));
+            }
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: false,
+                data: archivos,
+                processData: false,
+                beforeSend: function () {
+                    $('#respuesta').html('<center><img src="../recursos/cargando2.gif" width="100"></center>');
+                },
+                success: function (data) {
+                    if (data == 'OK') {
+                        $('#respuesta').html(data);
+                        return false;
+                    } else {
+                        $('#respuesta').html(data);
+                        return false;
+                    }
+                }
+            });
+            return false;
+        } else {
+            alert('Selecciona un archivo CSV para importar');
+            return false;
+        }
+    });
+
+
+    $('#bt-afacturar').on('click', function () {
+        var proceso = '2';
+        var cliente = $('#cb-cliente').val();
+        $('#respuesta').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
+        var url = '../php/pedidosgs.php';
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: 'proceso=' + proceso + '&cliente=' + cliente,
+            success: function (datos) {
+                $('#respuesta').html(datos);
+            }
+        });
+        return false;
+    });
+
+
+    $('#submit').on('click', function () {
+        var comprobar = $('#csv').val().length;
+        var ID = $('#id').val();
+        if (comprobar > 0) {
+            var formulario = $('#subida');
+            var archivos = new FormData();
+            var url = '../php/importarCSV.php?ID=' + ID;
+            for (var i = 0; i < (formulario.find('input[type=file]').length); i++) {
+                archivos.append((formulario.find('input[type="file"]:eq(' + i + ')').attr("name")), ((formulario.find('input[type="file"]:eq(' + i + ')')[0]).files[0]));
+            }
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: false,
+                data: archivos,
+                processData: false,
+                beforeSend: function () {
+                    $('#respuesta').html('<center><img src="../recursos/cargando2.gif" width="100"></center>');
+                },
+                success: function (data) {
+                    if (data == 'OK') {
+                        $('#respuesta').html(data);
+                        return false;
+                    } else {
+                        $('#respuesta').html(data);
+                        return false;
+                    }
+                }
+            });
+            return false;
+        } else {
+            alert('Selecciona un archivo CSV para importar');
+            return false;
+        }
+    });
+
     $('#codigo').focus();
 
     $('#bt-buscar').on('click', function () {
@@ -25,7 +179,7 @@ $(function () {
         var hasta = $('#bd-hasta').val();
         var bodega = $('#cb-bodega').val();
         $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
-        var url = '../php/busca_ventadiaria.php';
+        var url = '../php/busca_ventadiaria_1.php';
         $.ajax({
             type: 'GET',
             url: url,
@@ -36,6 +190,26 @@ $(function () {
         });
         return false;
     });
+
+    $('#bt-vendedores').on('click', function () {
+        alert("aqui estoy");
+        var desde = $('#bd-desde').val();
+        var hasta = $('#bd-hasta').val();
+        var bodega = $('#cb-bodega').val();
+        var vendedores = $('#cb-vendedores').val();
+        $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
+        var url = '../php/busca_ventavendedor.php';
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: 'desde=' + desde + '&hasta=' + hasta + '&bodega=' + bodega + '&vendedores=' + vendedores,
+            success: function (datos) {
+                $('#agrega-registros').html(datos);
+            }
+        });
+        return false;
+    });
+
 
 
 
@@ -289,6 +463,7 @@ $(function () {
     });
 
 
+
     $('#bt-buscar2').on('click', function () {
         var dato = $('#bs-prod').val();
         var desde = $('#bd-desde').val();
@@ -306,6 +481,66 @@ $(function () {
         });
         return false;
     });
+
+    $('#totalisado').attr("checked", true);
+    $('#detallado').attr("disabled", true);
+    $('#xmes').attr("disabled", true);
+
+
+    $('#totalisado').on('click', function () {
+        if (this.checked) {
+            $('#detallado').attr("disabled", true);
+            $('#xmes').attr("disabled", true);
+        } else {
+            $('#detallado').attr("disabled", false);
+            $('#xmes').attr("disabled", false);
+        }
+    });
+    $('#detallado').on('click', function () {
+        if (this.checked) {
+            $('#totalisado').attr("disabled", true);
+            $('#xmes').attr("disabled", true);
+        } else {
+            $('#totalisado').attr("disabled", false);
+            $('#xmes').attr("disabled", false);
+        }
+    });
+    $('#xmes').on('click', function () {
+        if (this.checked) {
+            $('#totalisado').attr("disabled", true);
+            $('#detallado').attr("disabled", true);
+        } else {
+            $('#totalisado').attr("disabled", false);
+            $('#detallado').attr("disabled", false);
+        }
+    });
+
+    $('#bt-bonobooks').on('click', function () {
+        var datos = $('#bonos').val();
+        var desde = $('#bd-desde').val();
+        var hasta = $('#bd-hasta').val();
+        var op1 = $('#totalisado').is(":checked");
+        var op2 = $('#detallado').is(":checked");
+        var op3 = $('#xmes').is(":checked");
+        if (datos != '' && desde != '' && hasta != '') {
+            $('#agrega-registros').html('<h2><div align="center"><img src="../recursos/cargando2.gif" width="100" /><div></h2>');
+            var url = '../php/busca_bonobooks.php';
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: 'desde=' + desde + '&hasta=' + hasta + '&datos=' + datos + '&op1=' + op1 + '&op2=' + op2 + '&op3=' + op3,
+                success: function (datos) {
+                    $('#agrega-registros').html(datos);
+                }
+            });
+            return false;
+        } else {
+            alert("Ingrese Todos los Parametros de Busqueda");
+            return false;
+        }
+
+    });
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////

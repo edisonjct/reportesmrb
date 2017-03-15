@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include("conexion.php");
 $bodega = $_GET['bodega'];
@@ -24,7 +25,7 @@ switch ($tipo) {
         Sum(d.VALOR03) AS costo,
         Sum(d.desctotvta03+d.DESCVTA03+d.desctotfp03) AS DESCUENTO,
         Sum(d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03) AS VENTANET,
-        sum(d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03) - sum(d.PU03) AS utilidad,
+        sum(d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03) - sum((d.VALOR03/d.CANTID03)) AS utilidad,
         MONTH(d.FECMOV03) AS mes,
         YEAR(d.FECMOV03) AS anio,
         bodegas.nombre AS bodega
@@ -77,11 +78,11 @@ switch ($tipo) {
                 <td>' . $row['provedor'] . '</td>
                 <td>' . $row['PAIS'] . '</td>
                 <td>' . $row['idioma'] . '</td>
-                <td>' . number_format($row['cantidad'], 0, '.',',') . '</td>
-                <td>' . number_format($row['costo'], 2, '.',',') . '</td>
-                <td>' . number_format($row['DESCUENTO'], 2, '.',',') . '</td>
-                <td>' . number_format($row['VENTANET'], 2, '.',',') . '</td>
-                <td>' . number_format($row['utilidad'], 2, '.',',') . '</td>
+                <td>' . number_format($row['cantidad'], 0, '.', ',') . '</td>
+                <td>' . number_format($row['costo'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['DESCUENTO'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['VENTANET'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['utilidad'], 2, '.', ',') . '</td>
                 <td>' . $row['mes'] . '</td>
                 <td>' . $row['anio'] . '</td>
                 <td>' . $row['bodega'] . '</td>
@@ -113,7 +114,7 @@ switch ($tipo) {
         Sum(d.VALOR03) AS costo,
         Sum(d.desctotvta03+d.DESCVTA03+d.desctotfp03) AS DESCUENTO,
         Sum(d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03) AS VENTANET,
-        sum(d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03) - sum(d.PU03) AS utilidad,
+        sum(d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03) - sum((d.VALOR03/d.CANTID03)) AS utilidad,
         MONTH(d.FECMOV03) AS mes,
         YEAR(d.FECMOV03) AS anio,
         bodegas.nombre AS bodega
@@ -168,11 +169,11 @@ switch ($tipo) {
                 <td>' . $row['provedor'] . '</td>
                 <td>' . $row['PAIS'] . '</td>
                 <td>' . $row['idioma'] . '</td>
-                <td>' . number_format($row['cantidad'], 0, '.',',') . '</td>
-                <td>' . number_format($row['costo'], 2, '.',',') . '</td>
-                <td>' . number_format($row['DESCUENTO'], 2, '.',',') . '</td>
-                <td>' . number_format($row['VENTANET'], 2, '.',',') . '</td>
-                <td>' . number_format($row['utilidad'], 2, '.',',') . '</td>
+                <td>' . number_format($row['cantidad'], 0, '.', ',') . '</td>
+                <td>' . number_format($row['costo'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['DESCUENTO'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['VENTANET'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['utilidad'], 2, '.', ',') . '</td>
                 <td>' . $row['mes'] . '</td>
                 <td>' . $row['anio'] . '</td>
                 <td>' . $row['bodega'] . '</td>
@@ -187,7 +188,7 @@ switch ($tipo) {
         mysql_free_result($resul);
         mysql_close($conexion);
         break;
-        
+
     case '30':
         $query = "SELECT
         d.TIPOTRA03 AS tipo,
@@ -205,7 +206,7 @@ switch ($tipo) {
         Sum(d.VALOR03) AS costo,
         Sum(d.desctotvta03+d.DESCVTA03+d.desctotfp03) AS DESCUENTO,
         Sum(d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03) AS VENTANET,
-        sum(d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03) - sum(d.PU03) AS utilidad,
+        sum(d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03) - sum((d.VALOR03/d.CANTID03)) AS utilidad,
         MONTH(d.FECMOV03) AS mes,
         YEAR(d.FECMOV03) AS anio,
         bodegas.nombre AS bodega
@@ -260,11 +261,11 @@ switch ($tipo) {
                 <td>' . $row['provedor'] . '</td>
                 <td>' . $row['PAIS'] . '</td>
                 <td>' . $row['idioma'] . '</td>
-                <td>' . number_format($row['cantidad'], 0, '.',',') . '</td>
-                <td>' . number_format($row['costo'], 2, '.',',') . '</td>
-                <td>' . number_format($row['DESCUENTO'], 2, '.',',') . '</td>
-                <td>' . number_format($row['VENTANET'], 2, '.',',') . '</td>
-                <td>' . number_format($row['utilidad'], 2, '.',',') . '</td>
+                <td>' . number_format($row['cantidad'], 0, '.', ',') . '</td>
+                <td>' . number_format($row['costo'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['DESCUENTO'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['VENTANET'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['utilidad'], 2, '.', ',') . '</td>
                 <td>' . $row['mes'] . '</td>
                 <td>' . $row['anio'] . '</td>
                 <td>' . $row['bodega'] . '</td>
@@ -273,6 +274,210 @@ switch ($tipo) {
         } else {
             echo '<tr>
             <td colspan="18">No se encontraron resultados</td>
+      </tr>';
+        }
+        echo '</table>';
+        mysql_free_result($resul);
+        mysql_close($conexion);
+        break;
+
+    case 'fcli':
+        $query = "SELECT
+        d.TIPOTRA03 AS tipo,
+        p.codbar01 AS codigo,
+        c.nofact31 as factura,
+        c.ruc31 AS codigocliente,
+        CASE WHEN LENGTH(c.ruc31) > 10 THEN 'JURIDICA' ELSE 'NATURAL' END AS tipocli,
+        c.nomcte31 AS nombrecliente,
+        p.desprod01 AS titulo,
+        e.razon AS editorial,
+        a.nombres AS autor,
+        ct.categoria AS categoria,
+        ct.segmento AS segmento,
+        ct.final AS final,
+        pr.nomcte01 AS provedor,
+        (SELECT pa.nomtab FROM paises pa WHERE pr.loccte01 = pa.codtab) AS PAIS,
+        idiomas.nomtab AS idioma,
+        d.CANTID03 AS cantidad,
+        d.VALOR03 AS costo,
+        (d.desctotvta03+d.DESCVTA03+d.desctotfp03) AS DESCUENTO,
+        (d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03) AS VENTANET,
+        (d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03) - (d.VALOR03/d.CANTID03) AS utilidad,
+        MONTH(d.FECMOV03) AS mes,
+        YEAR(d.FECMOV03) AS anio,
+        bodegas.nombre AS bodega
+        FROM
+        factura_detalle AS d
+        INNER JOIN factura_cabecera AS c ON d.NOCOMP03 = c.nofact31
+        INNER JOIN maepro AS p ON p.codprod01 = d.CODPROD03
+        LEFT JOIN autores AS a ON p.infor01 = a.codigo
+        LEFT JOIN editoriales AS e ON p.infor02 = e.codigo
+        LEFT JOIN categorias_sc AS ct ON p.catprod01 = ct.codigo
+        LEFT JOIN provedores AS pr ON p.proved101 = pr.coddest01
+        INNER JOIN bodegas ON d.bodega = bodegas.cod_local
+        LEFT JOIN idiomas ON p.infor03 = idiomas.codtab
+        WHERE d.TIPOTRA03 = '80' AND d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND d.bodega in ($bodega) AND
+                c.cvanulado31 <> '9' AND bodegas.estado = '1'
+        ORDER BY d.bodega,YEAR(d.FECMOV03),MONTH(d.FECMOV03)";
+       
+        echo '<table class="table table-striped table-condensed table-hover">
+          <tr>
+                <th>FACTURA</th>
+                <th>COD.CLIENTE</th>
+                <th>TIPO.CLIENTE</th>
+                <th>NOM.CLIENTE</th>
+                <th>CODIGO</th>
+                <th>TITULO</th>
+                <th>EDITORIAL</th>
+                <th>AUTOR</th>
+                <th>CATEGORIA</th>
+                <th>SEGMENTO</th>
+                <th>FINAL</th>
+                <th>PROVEDOR</th>  
+                <th>PAIS</th>   
+                <th>IDIOMA</th>
+                <th>CANTIDAD</th>
+                <th>COSTO</th>
+                <th>DESCUENTO</th>
+                <th>VENTA</th>  
+                <th>UTILIDAD</th> 
+                <th>MES</th>
+                <th>AÑO</th>  
+                <th>BODEGA</th>
+            </tr>';
+        $resul = mysql_query($query, $conexion);
+        if (mysql_num_rows($resul) > 0) {
+            while ($row = mysql_fetch_array($resul)) {
+                echo '<tr>
+                <td>' . $row['factura'] . '</td>
+                <td>' . $row['codigocliente'] . '</td>  
+                <td>' . $row['tipocli'] . '</td>
+                <td>' . $row['nombrecliente'] . '</td>
+                <td>' . $row['codigo'] . '</td>
+                <td>' . $row['titulo'] . '</td>  
+                <td>' . $row['editorial'] . '</td>
+                <td>' . $row['autor'] . '</td>
+                <td>' . $row['categoria'] . '</td>
+                <td>' . $row['segmento'] . '</td>
+                <td>' . $row['final'] . '</td>
+                <td>' . $row['provedor'] . '</td>
+                <td>' . $row['PAIS'] . '</td>
+                <td>' . $row['idioma'] . '</td>
+                <td>' . number_format($row['cantidad'], 0, '.', ',') . '</td>
+                <td>' . number_format($row['costo'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['DESCUENTO'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['VENTANET'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['utilidad'], 2, '.', ',') . '</td>
+                <td>' . $row['mes'] . '</td>
+                <td>' . $row['anio'] . '</td>
+                <td>' . $row['bodega'] . '</td>
+                </tr>';
+            }
+        } else {
+            echo '<tr>
+            <td colspan="22">No se encontraron resultados</td>
+      </tr>';
+        }
+        echo '</table>';
+        mysql_free_result($resul);
+        mysql_close($conexion);
+        break;
+        
+    case 'nccli':
+        $query = "SELECT
+        d.TIPOTRA03 AS tipo,
+        p.codbar01 AS codigo,
+        d.NOCOMP03 as notadc,
+        c.cascte01 as codigocliente,
+        c.nomcte01 as nombrecliente,
+        CASE WHEN LENGTH(c.cascte01) > 10 THEN 'JURIDICA' ELSE 'NATURAL' END AS tipocli,
+        p.desprod01 AS titulo,
+        e.razon AS editorial,
+        a.nombres AS autor,
+        ct.categoria AS categoria,
+        ct.segmento AS segmento,
+        ct.final AS final,
+        pr.nomcte01 AS provedor,
+        (SELECT pa.nomtab FROM paises pa WHERE pr.loccte01 = pa.codtab) AS PAIS,
+        idiomas.nomtab AS idioma,
+        d.CANTID03 AS cantidad,
+        d.VALOR03 * -1  AS costo,
+        (d.desctotvta03+d.DESCVTA03+d.desctotfp03)*-1  AS DESCUENTO,
+        (d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03)*-1 AS VENTANET,
+        ((d.PRECVTA03-d.DESCVTA03-d.desctotvta03-d.desctotfp03) - (d.VALOR03/d.CANTID03))*-1 AS utilidad,
+        MONTH(d.FECMOV03) AS mes,
+        YEAR(d.FECMOV03) AS anio,
+        bodegas.nombre AS bodega
+        FROM
+                factura_detalle AS d
+                LEFT JOIN clientes AS c ON d.nomdest03 = c.codcte01
+                INNER JOIN maepro AS p ON p.codprod01 = d.CODPROD03
+                LEFT JOIN autores AS a ON p.infor01 = a.codigo
+                LEFT JOIN editoriales AS e ON p.infor02 = e.codigo
+                LEFT JOIN categorias_sc AS ct ON p.catprod01 = ct.codigo
+                LEFT JOIN provedores AS pr ON p.proved101 = pr.coddest01
+                INNER JOIN bodegas ON d.bodega = bodegas.cod_local
+                LEFT JOIN idiomas ON p.infor03 = idiomas.codtab
+        WHERE d.TIPOTRA03 = '22' AND d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' 
+        AND d.bodega in ($bodega) AND bodegas.estado = '1'
+        ORDER BY d.bodega,YEAR(d.FECMOV03),MONTH(d.FECMOV03),d.FECMOV03";  
+        //echo $query;
+        echo '<table class="table table-striped table-condensed table-hover">
+          <tr>
+                <th>NOTADECRE.</th>
+                <th>COD.CLIENTE</th>
+                <th>TIPO.CLIENTE</th>
+                <th>NOM.CLIENTE</th>
+                <th>CODIGO</th>
+                <th>TITULO</th>
+                <th>EDITORIAL</th>
+                <th>AUTOR</th>
+                <th>CATEGORIA</th>
+                <th>SEGMENTO</th>
+                <th>FINAL</th>
+                <th>PROVEDOR</th>  
+                <th>PAIS</th>   
+                <th>IDIOMA</th>
+                <th>CANTIDAD</th>
+                <th>COSTO</th>
+                <th>DESCUENTO</th>
+                <th>VENTA</th>  
+                <th>UTILIDAD</th> 
+                <th>MES</th>
+                <th>AÑO</th>  
+                <th>BODEGA</th>
+            </tr>';
+        $resul = mysql_query($query, $conexion);
+        if (mysql_num_rows($resul) > 0) {
+            while ($row = mysql_fetch_array($resul)) {
+                echo '<tr>
+                <td>' . $row['notadc'] . '</td>
+                <td>' . $row['codigocliente'] . '</td>  
+                <td>' . $row['tipocli'] . '</td>
+                <td>' . $row['nombrecliente'] . '</td>
+                <td>' . $row['codigo'] . '</td>
+                <td>' . $row['titulo'] . '</td>  
+                <td>' . $row['editorial'] . '</td>
+                <td>' . $row['autor'] . '</td>
+                <td>' . $row['categoria'] . '</td>
+                <td>' . $row['segmento'] . '</td>
+                <td>' . $row['final'] . '</td>
+                <td>' . $row['provedor'] . '</td>
+                <td>' . $row['PAIS'] . '</td>
+                <td>' . $row['idioma'] . '</td>
+                <td>' . number_format($row['cantidad'], 0, '.', ',') . '</td>
+                <td>' . number_format($row['costo'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['DESCUENTO'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['VENTANET'], 2, '.', ',') . '</td>
+                <td>' . number_format($row['utilidad'], 2, '.', ',') . '</td>
+                <td>' . $row['mes'] . '</td>
+                <td>' . $row['anio'] . '</td>
+                <td>' . $row['bodega'] . '</td>
+                </tr>';
+            }
+        } else {
+            echo '<tr>
+            <td colspan="22">No se encontraron resultados</td>
       </tr>';
         }
         echo '</table>';

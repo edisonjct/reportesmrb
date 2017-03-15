@@ -5,10 +5,10 @@ if (!isset($_SESSION['user_session'])) {
     header("Location: ../index.php");
 }
 include("conexion.php");
-header("Content-type: application/vnd.ms-excel; name='excel'"); 
-header("Content-Disposition: filename=importaciones.xls"); 
-header("Pragma: no-cache"); 
-header("Expires: 0"); 
+header("Content-type: application/vnd.ms-excel; name='excel'");
+header("Content-Disposition: filename=importaciones.xls");
+header("Pragma: no-cache");
+header("Expires: 0");
 $doc = $_GET['doc'];
 $tipo = $_GET['tipo'];
 $grupo = '';
@@ -17,8 +17,7 @@ $total = '';
 <!DOCTYPE html>
 <html lang="en">
     <body>
-        <?php       
-
+        <?php
         $sql = "SELECT
                 m.codprod01 AS interno,
                 m.codbar01 AS codigo,
@@ -32,6 +31,7 @@ $total = '';
                 liqimp31.precuni31 AS costo,
                 liqimp31.cif31 AS valor,
                 liqimp31.fob31 AS fob,
+                (liqimp31.fob31 / liqimp31.cantped31) as fobu,
                 d.FACTORPVP03 as factor,
                 m.precvta01 as pvp
                 FROM
@@ -41,11 +41,11 @@ $total = '';
                 LEFT JOIN categorias AS c ON m.catprod01 = c.codcate
                 INNER JOIN movprocdi AS d ON d.CODPROD03 = m.codprod01
                 INNER JOIN liqimp31 ON d.CODPROD03 = liqimp31.codprod31
-                WHERE c.tipocate = '02' AND d.TIPOTRA03 = '30' AND d.NOCOMP03 = '001-001-000000128' AND liqimp31.tipodoc31 = d.NOFACT03
+                WHERE c.tipocate = '02' AND d.TIPOTRA03 = '30' AND d.NOCOMP03 = '$doc' AND liqimp31.tipodoc31 = d.NOFACT03
                 ORDER BY m.proved101,d.OCURREN03 ASC
                 ";
         $resul = mysql_query($sql, $conexion);
-     
+
         if (mysql_num_rows($resul) > 0) {
             while ($row = mysql_fetch_array($resul)) {
                 $grupoant=$grupo;         
@@ -63,8 +63,9 @@ $total = '';
                             <th>Cantidad</th>
                             <th>Pvp.Actual</th>
                             <th>Costo</th>
-                            <th>Valor</th>
+                            <th>Costo.T</th>
                             <th>Fob</th>
+                            <th>Fob.U</th>
                             <th>Factor</th>
                                                       
                         </tr>';
@@ -76,25 +77,17 @@ $total = '';
                         <td>' . $row['editorial'] . '</td>
                         <td>' . $row['categoria'] . '</td>
                         <td>' . $row['provedor'] . '</td>
-                        <td>' . $row['cantidad'] . '</td>
+                        <td style="color: #8B241C;"><b>' . number_format($row['cantidad'], 0, '.',',') . '</b></td>
                         <td>' . number_format($row['pvp'], 2, '.',',') . '</td>
-                        <td>' . number_format($row['costo'], 2, '.',',') . '</td>
-                        <td>' . number_format($row['valor'], 2, '.',',') . '</td>
+                        <td style="color: #1231F9;">' . number_format($row['costo'], 2, '.',',') . '</td>
+                        <td style="color: #1231F9;">' . number_format($row['valor'], 2, '.',',') . '</td>
                         <td>' . number_format($row['fob'], 2, '.',',') . '</td>
-                        <td>' . number_format($row['factor'], 2, '.',',') . '</td>                       
+                        <td>' . number_format($row['fobu'], 2, '.',',') . '</td>
+                        <td style="color: #8B241C;"><b>' . number_format($row['factor'], 2, '.',',') . '</b></td>                       
                     </tr>';  
-
-                   
-                
+       
             }
-             echo '<tr>               
-                            <th>total</th>
-                            <th>total</th>
-                            <th>total</th>
-                            <th>total</th>
-                            <th>total</th>
-                            <th>total</th>                
-                        </tr>';
+            
         } else {
             echo '<tr>
                 <td colspan="3">No se encontraron resultados</td>

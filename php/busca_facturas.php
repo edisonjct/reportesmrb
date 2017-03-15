@@ -198,7 +198,7 @@ else {
   if ($bodega == 'TODOS') {
     // BUSCA TODAS LAS FACTURAS EN TODAS LAS BODEGAS
    // INICIO CONSULTA     
-$registro = mysql_query("SELECT
+     echo $query = "SELECT
 DATE_FORMAT(d.FECMOV03,'%Y/%m/%d') AS FECHA,
 d.NOCOMP03 AS FACTURA,
 Sum(d.PRECVTA03) AS VENTABTA,
@@ -220,7 +220,8 @@ d.TIPOTRA03 = '80' AND
 c.cvanulado31 <> '9' AND
 d.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59'
 GROUP BY d.NOCOMP03
-ORDER BY d.FECMOV03 DESC");
+ORDER BY d.FECMOV03 DESC";
+$registro = mysql_query($query);
 echo '<table class="table table-striped table-condensed table-hover">
           <tr>
           <th width="20">FECHA</th>

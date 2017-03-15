@@ -57,7 +57,7 @@ if ($dato == true) {
                 LEFT JOIN factura_cabecera fa ON f.NOCOMP03 = fa.nofact31
                 LEFT JOIN categorias ON m.catprod01 = categorias.codcate
                 LEFT JOIN provedores ON m.proved101 = provedores.coddest01
-                INNER JOIN bodegas ON f.bodega = bodegas.cod_local
+                LEFT JOIN bodegas ON f.bodega = bodegas.cod_local
               WHERE f.TIPOTRA03 = '80' AND fa.cvanulado31 <> '9' AND f.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND m.codbar01 = '$dato' AND f.bodega IN ($bodega)
               GROUP BY f.bodega,f.CODPROD03 ORDER BY sum(f.CANTID03) DESC";
     $resultado = mysql_query($sql) or die(mysql_error());
@@ -97,7 +97,7 @@ if ($dato == true) {
                 LEFT JOIN factura_cabecera fa ON f.NOCOMP03 = fa.nofact31
                 LEFT JOIN categorias ON m.catprod01 = categorias.codcate
                 LEFT JOIN provedores ON m.proved101 = provedores.coddest01
-                INNER JOIN bodegas ON f.bodega = bodegas.cod_local
+                LEFT JOIN bodegas ON f.bodega = bodegas.cod_local
               WHERE f.TIPOTRA03 = '80' AND fa.cvanulado31 <> '9' AND f.FECMOV03 BETWEEN '$desde 00:00:00' AND '$hasta 23:59:59' AND f.bodega IN ($bodega)
               GROUP BY f.bodega,f.CODPROD03 ORDER BY sum(f.CANTID03) DESC";
     $resultado = mysql_query($sql) or die(mysql_error());
